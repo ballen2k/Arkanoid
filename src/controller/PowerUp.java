@@ -32,5 +32,12 @@ public class PowerUp extends GameObject{
 	public int getY() {
 		return y;
 	}
-
+	
+	public int getHeight() {
+		return 0;
+	}
+	
+	public int getWidth() {
+		return 0;
+	}
 }

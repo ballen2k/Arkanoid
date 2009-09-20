@@ -16,10 +16,6 @@ public class Interface extends JFrame {
 	 * Creates the interface on which the game will be shown
 	 */
 	public Interface() {
-		
-		
-		
-		
 		gameData = new GameData();
 		this.setTitle("OMG ARKANÖID");
 		gameView = new GameView(gameData);

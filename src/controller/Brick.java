@@ -27,7 +27,7 @@ public class Brick extends GameObject{
 		if(this.x >= x && x <=this.x + width && this.y >= y && y <= this.y+height){
 			return true;
 		}
-	
+		System.out.println("Intersect");
 
 		return false;
 	}
@@ -40,10 +40,11 @@ public class Brick extends GameObject{
 		return y;
 	}
 
+	public int getHeight() {
+		return height;
+	}
 	
-		
-	
-	
-	
-	
+	public int getWidth() {
+		return width;
+	}
 }

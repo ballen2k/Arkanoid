@@ -23,11 +23,9 @@ public class Player extends GameObject {
 	@Override
 	public boolean intersect(int x, int y) {
 		if(this.getX()<= x && x-60 <this.getX() &&
-				
 				this.y <= y && y-5 <= this.y ){
 			return true;
 		}
-	
 
 		return false;
 	}
@@ -42,5 +40,13 @@ public class Player extends GameObject {
 	
 	public int getX(){
 		return x;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+	
+	public int getWidth() {
+		return width;
 	}
 }

@@ -26,10 +26,6 @@ public class GameView extends JPanel implements Observer{
 		
 		this.addMouseListener(new MouseInputController(gameData));
 		this.addMouseMotionListener(new MouseInputController(gameData));
-		
-		
-		
-
 	}
 
 	public void paintComponent(Graphics g) {
