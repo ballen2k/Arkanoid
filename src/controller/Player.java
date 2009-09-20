@@ -13,21 +13,22 @@ public class Player extends GameObject {
 	final int height = 15;
 	
 	
-	@Override
+
 	public void draw(Graphics g) {
 		g.setColor(Color.green);
 		g.fillRect(x,y, width, height);
 		
 	}
 
-	@Override
-	public boolean intersect(int x, int y) {
-		if(this.getX()<= x && x-60 <this.getX() &&
-				this.y <= y && y-5 <= this.y ){
-			return true;
-		}
 
-		return false;
+	public boolean intersect(GameObject object) {
+		int x1 = x + width;
+		int y1 = y + height;
+
+		int x3 = object.getX() + object.getWidth();
+		int y3 = object.getY() + object.getHeight();
+
+		return !(x1 < object.getX() || x3 < x || y1 < object.getY() || y3 < y);
 	}
 
 	public int getY() {
@@ -49,4 +50,7 @@ public class Player extends GameObject {
 	public int getWidth() {
 		return width;
 	}
+
+
+	
 }

@@ -1,22 +1,22 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import controller.Ball;
 import controller.GameObject;
 
 public class BallData {
-	
-	private int x;
-	private int y;
-	private int directionX = 1;
-	private int directionY =1;
+	private Random random;
+	private int rnd;
 	private ArrayList<Ball> ballList;
 	private GameData gameData;
 		public BallData(GameData gameData){
 			this.gameData = gameData;
 			ballList = new ArrayList<Ball>();
-			ballList.add(new Ball(50,50));
+			ballList.add(new Ball(50,150,1,1));
+			ballList.add(new Ball(150,150,1,1));
+			random = new Random();
 			
 		}
 
@@ -25,26 +25,30 @@ public class BallData {
 	public void doYourStuff() {
 		// TODO for every tick from timer, move ball(s) accordingly.
 		
-		for (GameObject go : ballList){
-			go.setCordinates(go.getX()+(5*directionX), go.getY()+(5*directionY));
-			if (go.getX()>=480){
-				directionX = -1;
-			}
-			if (go.getX() <= 0){
-				directionX = 1;
+		for (Ball ball : ballList){
+			ball.setCordinates(
+					ball.getX()+(ball.getSlope()*ball.getDirectionX()), 
+					ball.getY()+(5*ball.getDirectionY()));
+			if (ball.getX()>=480){
+				ball.changeDirectionX();
 				
 			}
-			if (go.getY() <= 0){
-				directionY = 1;
+			if (ball.getX() <= 0){
+				ball.changeDirectionX();
+			
+				
 			}
-			if(go.getY() >= 480){
-				directionY = -1;
+			if (ball.getY() <= 0){
+				ball.changeDirectionY();
+			}
+			if(ball.getY() >= 480){
+				ball.changeDirectionY();
 			}
 			
 			
-			if (gameData.getPlayer().intersect(go.getX(), go.getY())){
-				System.out.println("INTERSECT");
-				directionY = -1;
+			if (gameData.getPlayer().intersect(ball)){
+				ball.setSlope(random.nextInt(5)+5);
+				ball.changeDirectionY();
 					
 				
 			}

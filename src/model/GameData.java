@@ -52,6 +52,7 @@ public class GameData extends Observable implements ActionListener {
 				controller.GameObject ob = it.next();
 				if(b.intersect(ob)) {
 					it.remove();
+					b.changeDirectionY();
 				}
 			}
 		}

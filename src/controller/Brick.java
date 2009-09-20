@@ -23,14 +23,7 @@ public class Brick extends GameObject{
 	}
 
 
-	public boolean intersect(int x, int y) {
-		if(this.x >= x && x <=this.x + width && this.y >= y && y <= this.y+height){
-			return true;
-		}
-		System.out.println("Intersect");
 
-		return false;
-	}
 
 	public int getX() {
 		return x;
@@ -46,5 +39,11 @@ public class Brick extends GameObject{
 	
 	public int getWidth() {
 		return width;
+	}
+
+	@Override
+	public boolean intersect(GameObject gameObject) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

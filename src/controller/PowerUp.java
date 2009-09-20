@@ -13,11 +13,7 @@ public class PowerUp extends GameObject{
 		
 	}
 
-	@Override
-	public boolean intersect(int x, int y) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
 
 	@Override
 	public void setCordinates(int x, int y) {
@@ -39,5 +35,13 @@ public class PowerUp extends GameObject{
 	
 	public int getWidth() {
 		return 0;
+	}
+
+
+
+	@Override
+	public boolean intersect(GameObject gameObject) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 }

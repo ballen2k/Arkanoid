@@ -22,7 +22,7 @@ public abstract class GameObject {
 	 *
 	 * 
 	 */
-	public abstract boolean intersect(int x, int y);
+	public abstract boolean intersect(GameObject gameObject);
 	
 	public abstract int getX();
 	public abstract int getY();
