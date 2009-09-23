@@ -14,16 +14,19 @@ public class Level {
 		for (int i = 10; i <450; i = i+36){
 			brick = GameObjectFactory.createBrick();
 			brick.setCordinates(i, 10);
+			brick.setHealth(2);
 			level.add(brick);
 		}
 			for (int i = 10; i <450; i = i+36){
 				brick = GameObjectFactory.createBrick();
 				brick.setCordinates(i, 26);
+				brick.setHealth(2);
 				level.add(brick);
 		}
 			for (int i = 10; i <450; i = i+36){
 				brick = GameObjectFactory.createBrick();
 				brick.setCordinates(i, 42);
+				brick.setHealth(2);
 				level.add(brick);
 		}
 		

@@ -23,9 +23,12 @@ public abstract class GameObject {
 	 * 
 	 */
 	public abstract boolean intersect(GameObject gameObject);
-	
+	public abstract void hit(GameObject o);
+	public abstract boolean isDead();
 	public abstract int getX();
 	public abstract int getY();
 	public abstract int getHeight();
 	public abstract int getWidth();
+	public abstract void setHealth(int i);
+	
 }

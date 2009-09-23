@@ -20,6 +20,7 @@ public class Ball extends GameObject {
 		this.slope=5;
 		width = 10;
 		height = 10;
+		
 	}
 
 
@@ -101,5 +102,29 @@ public class Ball extends GameObject {
 
 	public int getWidth() {
 		return width;
+	}
+
+
+
+	@Override
+	public void hit(GameObject g) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public boolean isDead() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+
+	@Override
+	public void setHealth(int i) {
+		// TODO Auto-generated method stub
+		
 	}
 }

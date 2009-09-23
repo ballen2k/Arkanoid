@@ -52,5 +52,26 @@ public class Player extends GameObject {
 	}
 
 
+	@Override
+	public void hit(GameObject g) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public boolean isDead() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public void setHealth(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 	
 }

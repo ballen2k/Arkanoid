@@ -51,7 +51,11 @@ public class GameData extends Observable implements ActionListener {
 			for(Iterator<controller.GameObject> it = objects.iterator(); it.hasNext(); ) {
 				controller.GameObject ob = it.next();
 				if(b.intersect(ob)) {
-					it.remove();
+					ob.hit(b);
+					if (ob.isDead()){
+						it.remove();	
+					}
+					
 					b.changeDirectionY();
 				}
 			}
