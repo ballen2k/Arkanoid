@@ -98,6 +98,7 @@ public class GameData extends Observable implements ActionListener {
 			}
 			if (player.isDead()){
 				System.out.println("GAME OVER NOOB");
+				timer.stop();
 				
 			}else{
 				ballData.addBall(player.getX()+25, player.getY()-controller.Ball.BALL_HEIGHT, 1, -1);
