@@ -17,7 +17,7 @@ public class PowerUpData {
 		// TODO for every tick from timer, move accordingly.
 		//*
 		for(PowerUp pu : powerUpList){
-			pu.setCordinates(x, y+10);
+			pu.setCoordinates(x, y+10);
 		}
 		
 		

@@ -14,7 +14,9 @@ public class LevelData {
 
 	public LevelData() {
 		levelList = new ArrayList<controller.Level>();
-		levelList.add(new controller.Level());
+		controller.Level level = new controller.Level();
+		level.loadLevel("fil.f");
+		levelList.add(level);
 		currentLevel = levelList.get(whichLevel);
 	}
 

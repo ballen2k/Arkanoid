@@ -6,8 +6,9 @@ import java.awt.Graphics;
 public class Ball extends GameObject {
 	private int x;
 	private int y;
-	private int width;
-	private int height;
+	public static final int BALL_WIDTH = 10;
+	public static final int BALL_HEIGHT = 10;
+
 	private int directionX;
 	private int directionY;
 	private int slope;
@@ -18,8 +19,7 @@ public class Ball extends GameObject {
 		this.directionX = directionX;
 		this.directionY = directionY;
 		this.slope=5;
-		width = 10;
-		height = 10;
+		
 		
 	}
 
@@ -66,14 +66,14 @@ public class Ball extends GameObject {
 	@Override
 	public void draw(Graphics g) {
 		g.setColor(Color.cyan);
-		g.fillOval(x, y, width, height);
+		g.fillOval(x, y, BALL_WIDTH, BALL_HEIGHT);
 
 	}
 
 
 	public boolean intersect(GameObject object) {
-		int x1 = x + width;
-		int y1 = y + height;
+		int x1 = x + BALL_WIDTH;
+		int y1 = y + BALL_HEIGHT;
 
 		int x3 = object.getX() + object.getWidth();
 		int y3 = object.getY() + object.getHeight();
@@ -82,7 +82,7 @@ public class Ball extends GameObject {
 	}
 
 	@Override
-	public void setCordinates(int x, int y) {
+	public void setCoordinates(int x, int y) {
 		this.x = x;
 		this.y = y;
 
@@ -97,11 +97,11 @@ public class Ball extends GameObject {
 	}
 
 	public int getHeight() {
-		return height;
+		return BALL_HEIGHT;
 	}
 
 	public int getWidth() {
-		return width;
+		return BALL_WIDTH;
 	}
 
 
@@ -126,5 +126,13 @@ public class Ball extends GameObject {
 	public void setHealth(int i) {
 		// TODO Auto-generated method stub
 		
+	}
+
+
+
+	@Override
+	public int getHealth() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

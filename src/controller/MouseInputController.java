@@ -50,7 +50,7 @@ public class MouseInputController implements MouseListener, MouseMotionListener 
 	}
 
 	public void mouseMoved(MouseEvent arg0) {
-		player.setCordinates(arg0.getX()-25, 123);
+		player.setCoordinates(arg0.getX()-25, 123);
 	}
 
 }

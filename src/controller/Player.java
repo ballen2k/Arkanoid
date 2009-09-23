@@ -5,7 +5,10 @@ import java.awt.Graphics;
 
 public class Player extends GameObject {
 	
-	
+	private int health = 3;
+
+
+
 	private int y = 400;
 	private int x = 200;
 
@@ -35,7 +38,7 @@ public class Player extends GameObject {
 		return y;
 	}
 
-	public void setCordinates(int x, int y) {
+	public void setCoordinates(int x, int y) {
 		this.x =x;
 	}
 	
@@ -61,13 +64,62 @@ public class Player extends GameObject {
 
 	@Override
 	public boolean isDead() {
-		// TODO Auto-generated method stub
-		return false;
+	return (health == 0);
 	}
 
 
 	@Override
 	public void setHealth(int i) {
+	this.health = i;		
+	}
+
+
+	@Override
+	public int getHealth() {
+		return health;
+	}
+
+
+	@Override
+	public void changeDirectionX() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void changeDirectionY() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public int getDirectionX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public int getDirectionY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+	@Override
+	public int getSlope() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+
+
+	@Override
+	public void setSlope(int i) {
 		// TODO Auto-generated method stub
 		
 	}

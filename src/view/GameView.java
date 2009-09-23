@@ -2,6 +2,7 @@ package view;
 
 import java.awt.*;
 import java.awt.event.ActionListener;
+import java.awt.geom.Rectangle2D;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -21,6 +22,8 @@ public class GameView extends JPanel implements Observer{
  * Here's where all the action is.
  */
 	public GameView(GameData gameData) {
+		
+		
 		this.gameData = gameData;
 		this.setBackground(Color.black);
 		
@@ -30,6 +33,8 @@ public class GameView extends JPanel implements Observer{
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		g.setColor(Color.green);
+		g.drawString(Integer.toString(gameData.getPlayer().getHealth()), 100,100);
 		for(GameObject go : gameData.getLevelData().getCurrentLevel().getLevel()){
 			go.draw(g);
 		}

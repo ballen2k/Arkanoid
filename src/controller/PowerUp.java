@@ -16,7 +16,7 @@ public class PowerUp extends GameObject{
 	
 
 	@Override
-	public void setCordinates(int x, int y) {
+	public void setCoordinates(int x, int y) {
 		this.y = y;
 		
 	}
@@ -65,6 +65,62 @@ public class PowerUp extends GameObject{
 
 	@Override
 	public void setHealth(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public int getHealth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+	@Override
+	public void changeDirectionX() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public void changeDirectionY() {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
+	@Override
+	public int getDirectionX() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+	@Override
+	public int getDirectionY() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+	@Override
+	public int getSlope() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+
+
+	@Override
+	public void setSlope(int i) {
 		// TODO Auto-generated method stub
 		
 	}
