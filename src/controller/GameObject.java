@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.Graphics;
+import java.awt.geom.Rectangle2D;
 
 /*
  * Abstract class for all the objects in the game. All of the objects used in Arkanoid will
@@ -23,6 +24,13 @@ public abstract class GameObject {
 	 * 
 	 */
 	public abstract boolean intersect(GameObject gameObject);
+	public boolean intersectLeft(GameObject object) { return false; }
+	public boolean intersectRight(GameObject object) { return false; }
+	
+	public void pushed() { return; }
+	public void setActive() { return; }
+	public void setNonActive() { return; }
+	
 	public abstract void hit(GameObject o);
 	public abstract boolean isDead();
 	public abstract int getX();
@@ -38,4 +46,5 @@ public abstract class GameObject {
 	public abstract void setSlope(int i);
 	public abstract int getSlope();
 	
+	public abstract Rectangle2D getBounds();
 }

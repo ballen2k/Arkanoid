@@ -2,8 +2,11 @@ package controller;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 
 public class Ball extends GameObject {
+	Rectangle2D outerBounds;
 	private int x;
 	private int y;
 	public static final int BALL_WIDTH = 10;
@@ -20,10 +23,12 @@ public class Ball extends GameObject {
 		this.directionY = directionY;
 		this.slope=5;
 		
-		
+		outerBounds = new Rectangle();
 	}
 
-
+	public Rectangle2D getBounds() {
+		return outerBounds;
+	}
 
 	public void setDirectionX(int directionX) {
 		this.directionX = directionX;
@@ -32,8 +37,6 @@ public class Ball extends GameObject {
 	public int getSlope() {
 		return slope;
 	}
-
-
 
 	public void setSlope(int slope) {
 		this.slope = slope;
@@ -69,23 +72,42 @@ public class Ball extends GameObject {
 		g.fillOval(x, y, BALL_WIDTH, BALL_HEIGHT);
 
 	}
-
-
+	
 	public boolean intersect(GameObject object) {
-		int x1 = x + BALL_WIDTH;
-		int y1 = y + BALL_HEIGHT;
-
-		int x3 = object.getX() + object.getWidth();
-		int y3 = object.getY() + object.getHeight();
-
-		return !(x1 < object.getX() || x3 < x || y1 < object.getY() || y3 < y);
+		outerBounds.setRect(x + slope * getDirectionX(),
+							y + (5 * getDirectionY()), 10, 10);
+		Rectangle2D obBounds = object.getBounds();
+		
+		return outerBounds.intersects(obBounds);
 	}
-
+	
+	public boolean intersectLeft(GameObject object) {
+		Rectangle2D obBounds = object.getBounds();
+		
+		// Create a temp rectangle to the left of the object
+		Rectangle2D leftZone = new Rectangle();
+		leftZone.setRect(obBounds.getX()-5, obBounds.getY()+1, 5, obBounds.getHeight()-1);
+		
+		return outerBounds.intersects(leftZone);
+	}
+	
+	public boolean intersectRight(GameObject object) {
+		Rectangle2D obBounds = object.getBounds();
+		
+		// Create a temp rectangle to the right of the object
+		Rectangle2D rightZone = new Rectangle();
+		rightZone.setRect(obBounds.getX()+obBounds.getWidth()-5, 
+						 obBounds.getY()+1, 5, 
+						 obBounds.getHeight()-1);
+		
+		return outerBounds.intersects(rightZone);
+	}
+	
 	@Override
 	public void setCoordinates(int x, int y) {
 		this.x = x;
 		this.y = y;
-
+		outerBounds.setRect(x,y,10,10);
 	}
 
 	public int getX() {

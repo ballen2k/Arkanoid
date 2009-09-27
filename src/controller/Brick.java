@@ -2,9 +2,12 @@ package controller;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
 public class Brick extends GameObject implements Serializable {
+	private Rectangle2D bounds;
 	private int health = 1;
 
 	private int x, y;
@@ -14,8 +17,14 @@ public class Brick extends GameObject implements Serializable {
 	public Brick(int x, int y) {
 		this.x = x; 
 		this.y = y;
+		bounds = new Rectangle();
+		bounds.setRect(x,y,width,height);
 	}
 
+	public Rectangle2D getBounds() {
+		return bounds;
+	}
+	
 	public void setCoordinates(int x, int y) {
 		this.x = x;
 		this.y = y;

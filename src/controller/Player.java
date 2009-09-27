@@ -2,11 +2,13 @@ package controller;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
 
 public class Player extends GameObject {
 	
 	private int health = 3;
-
+	private Rectangle2D bounds;
 
 
 	private int y = 400;
@@ -15,7 +17,14 @@ public class Player extends GameObject {
 	final int width = 60;
 	final int height = 15;
 	
+	public Player() {
+		bounds = new Rectangle();
+		bounds.setRect(x,y,width,height);
+	}
 	
+	public Rectangle2D getBounds() {
+		return bounds;
+	}
 
 	public void draw(Graphics g) {
 		g.setColor(Color.green);
@@ -39,10 +48,12 @@ public class Player extends GameObject {
 	}
 
 	public void setCoordinates(int x, int y) {
-		this.x =x;
+		y = 400;
+		this.x = x;
+		bounds.setRect(x,y,width,height);
 	}
 	
-	public int getX(){
+	public int getX() {
 		return x;
 	}
 
@@ -114,16 +125,8 @@ public class Player extends GameObject {
 		return 0;
 	}
 
-
-
-
-
-	@Override
 	public void setSlope(int i) {
-		// TODO Auto-generated method stub
-		
+	
 	}
-
-
 	
 }

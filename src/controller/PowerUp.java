@@ -1,11 +1,24 @@
 package controller;
 
 import java.awt.Graphics;
+import java.awt.geom.Rectangle2D;
 
 public class PowerUp extends GameObject{
 	private int x;
 	private int y;
-		
+	
+	private int height;
+	private int width; 
+	
+	private Rectangle2D bounds;
+	
+	public PowerUp() {
+		bounds.setRect(x,y,width,height);
+	}
+
+	public Rectangle2D getBounds() {
+		return bounds;
+	}
 	
 	@Override
 	public void draw(Graphics g) {

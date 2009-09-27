@@ -14,7 +14,15 @@ public class GameObjectFactory {
 		return new Ball(x,y,directionX,directionY);
 	}
 	
+	public static states.State createMenuState() {
+		return new states.StateMenu();
+	}
 	
+	public static states.State createPlayState() {
+		return new states.StatePlay();
+	}
 	
-	
+	public static states.State createExitState() {
+		return new states.StateExit();
+	}
 }

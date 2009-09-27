@@ -7,7 +7,6 @@ public class Start {
 	 */
 	public static void main(String[] args) {
 		view.Interface newGame = new view.Interface();
-		//testar [ 'ndra n[t bara
 	}
 
 }
