@@ -66,9 +66,13 @@ public class GameView extends JPanel implements Observer {
 					+ Integer.toString(gameData.points), 150, 460);
 
 			gameData.getPlayer().draw(g);
+		} else if(activeState instanceof states.StateLevelComplete) {
+			g.setColor(Color.orange);
+			g.drawString("Level is complete!", 180, 180);
+			//TODO Change to next level 
 		} else if(activeState instanceof states.StateExit) {
 			System.exit(0);
-		}
+		} 
 	}
 
 	public void update(Observable arg0, Object arg1) {

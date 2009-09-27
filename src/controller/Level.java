@@ -14,27 +14,6 @@ public class Level {
 	
 	public Level() {
 		this.level = new ArrayList<GameObject>();
-		/*
-		for (int i = 10; i <450; i = i+36){
-			brick = GameObjectFactory.createBrick();
-			brick.setCoordinates(i, 10);
-			brick.setHealth(2);
-			level.add(brick);
-		}
-			for (int i = 10; i <450; i = i+36){
-				brick = GameObjectFactory.createBrick();
-				brick.setCoordinates(i, 26);
-				brick.setHealth(2);
-				level.add(brick);
-		}
-			for (int i = 10; i <450; i = i+36){
-				brick = GameObjectFactory.createBrick();
-				brick.setCoordinates(i, 42);
-				brick.setHealth(2);
-				level.add(brick);
-		}
-*/		
-		
 	}
 
 	public ArrayList<GameObject> getLevel() {
@@ -54,13 +33,5 @@ public class Level {
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
-	}
-
-
-
-	
-	
-	
-	
-	
+	}	
 }

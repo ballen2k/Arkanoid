@@ -86,7 +86,7 @@ public class Ball extends GameObject {
 		
 		// Create a temp rectangle to the left of the object
 		Rectangle2D leftZone = new Rectangle();
-		leftZone.setRect(obBounds.getX()-5, obBounds.getY()+1, 5, obBounds.getHeight()-1);
+		leftZone.setRect(obBounds.getX()-5, obBounds.getY()+5, 5, obBounds.getHeight()-5);
 		
 		return outerBounds.intersects(leftZone);
 	}
@@ -96,9 +96,9 @@ public class Ball extends GameObject {
 		
 		// Create a temp rectangle to the right of the object
 		Rectangle2D rightZone = new Rectangle();
-		rightZone.setRect(obBounds.getX()+obBounds.getWidth()-5, 
-						 obBounds.getY()+1, 5, 
-						 obBounds.getHeight()-1);
+		rightZone.setRect(obBounds.getX()+obBounds.getWidth(), 
+						 obBounds.getY()+5, 5, 
+						 obBounds.getHeight()-5);
 		
 		return outerBounds.intersects(rightZone);
 	}

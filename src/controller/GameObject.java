@@ -47,4 +47,6 @@ public abstract class GameObject {
 	public abstract int getSlope();
 	
 	public abstract Rectangle2D getBounds();
+
+	public boolean isRemovable() { return false; }
 }

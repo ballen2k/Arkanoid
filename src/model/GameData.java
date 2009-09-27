@@ -126,6 +126,20 @@ public class GameData extends Observable implements ActionListener {
 			ArrayList<controller.GameObject> ballList = ballData.getBallList();
 			ArrayList<controller.GameObject> objects = levelData
 					.getCurrentLevel().getLevel();
+			
+			// Check if level is complete =)
+			boolean complete = true;
+			for(controller.GameObject ob : objects) {
+				if(ob.isRemovable() == true) {
+					complete = false;
+					break;
+				}
+			}
+			if(complete) {
+				changeState(new states.StateLevelComplete());
+				return;
+			}
+			
 			// Move all the balls
 			ballData.update();
 			

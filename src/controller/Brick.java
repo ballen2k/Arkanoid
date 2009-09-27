@@ -21,6 +21,10 @@ public class Brick extends GameObject implements Serializable {
 		bounds.setRect(x,y,width,height);
 	}
 
+	public boolean isRemovable() {
+		return true;
+	}
+	
 	public Rectangle2D getBounds() {
 		return bounds;
 	}
