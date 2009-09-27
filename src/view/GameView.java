@@ -38,9 +38,14 @@ public class GameView extends JPanel implements Observer {
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 
-		if (activeState instanceof states.StateMenu) {
-			g.setColor(Color.orange);
+		if (activeState instanceof states.StateMenu || activeState instanceof states.StateGameOver) {
+			if(activeState instanceof states.StateGameOver) {
+				g.setColor(Color.red);
+				g.drawString("GAME OVER", 190, 150);
+			}
 			
+			g.setColor(Color.orange);
+		
 			for(controller.GameObject ob :drawObjects) {
 				ob.draw(g);
 			}

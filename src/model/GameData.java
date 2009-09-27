@@ -93,7 +93,7 @@ public class GameData extends Observable implements ActionListener {
 	
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		if (activeState instanceof states.StateMenu) {
+		if (activeState instanceof states.StateMenu || activeState instanceof states.StateGameOver) {
 			for(controller.GameObject mi :menuList) {
 				if(mi.getBounds().contains(new Point(mousepos_x, mousepos_y))) {
 					mi.setActive();
@@ -186,7 +186,7 @@ public class GameData extends Observable implements ActionListener {
 				if (player.isDead()) {
 					System.out.println("GAME OVER NOOB");
 					activeGame = false;
-					this.changeState(new states.StateMenu());
+					this.changeState(new states.StateGameOver());
 				} else {
 					ballData.addBall(player.getX() + 25, player.getY()
 							- controller.Ball.BALL_HEIGHT, 1, -1);
