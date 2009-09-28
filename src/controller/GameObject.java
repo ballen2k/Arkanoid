@@ -45,6 +45,16 @@ public abstract class GameObject {
 	public abstract void changeDirectionX();
 	public abstract void setSlope(int i);
 	public abstract int getSlope();
+	//Detta verkar inteva så jävla bra???? låt stå sålänge.
+	public states.State getPowerUp(){
+		return new states.StatePlayerNormal();
+		};
+	public boolean hasPowerUp(){
+		return false;
+	};
+	public void setPowerUp(states.State powerUp){
+		
+	}
 	
 	public abstract Rectangle2D getBounds();
 

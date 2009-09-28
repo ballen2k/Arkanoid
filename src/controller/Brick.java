@@ -7,19 +7,35 @@ import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 
 public class Brick extends GameObject implements Serializable {
+	
 	private Rectangle2D bounds;
 	private int health = 1;
-
+	private states.State powerUp;
 	private int x, y;
 	final int width = 35;
 	final int height = 15;
+	private boolean hasPowerUp = false;
 	
 	public Brick(int x, int y) {
+		
 		this.x = x; 
 		this.y = y;
+		
 		bounds = new Rectangle();
 		bounds.setRect(x,y,width,height);
+		
+		
 	}
+	public boolean hasPowerUp(){
+		
+		return hasPowerUp;
+	}
+	
+	public void setPowerUp(states.State powerUp){
+		this.powerUp = powerUp;
+		hasPowerUp = true;
+	}
+	
 
 	public boolean isRemovable() {
 		return true;
@@ -27,6 +43,9 @@ public class Brick extends GameObject implements Serializable {
 	
 	public Rectangle2D getBounds() {
 		return bounds;
+	}
+	public states.State getPowerUp(){
+		return powerUp;
 	}
 	
 	public void setCoordinates(int x, int y) {

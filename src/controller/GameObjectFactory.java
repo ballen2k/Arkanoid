@@ -6,8 +6,9 @@ public class GameObjectFactory {
 		return new Brick(0,0);
 	}
 	
-	public static GameObject createPowerUp() {
-		return new PowerUp();
+	public static GameObject createPowerUp(states.State powerUp, int x, int y) {
+		
+		return new PowerUp(powerUp, x, y);
 	}
 	
 	public static GameObject createBall(int x, int y, int directionX, int directionY) {

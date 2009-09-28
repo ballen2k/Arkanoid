@@ -1,38 +1,47 @@
 package controller;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
-public class PowerUp extends GameObject{
+public class PowerUp extends GameObject {
 	private int x;
 	private int y;
-	
-	private int height;
-	private int width; 
-	
+	private states.State powerUp;
+	final private int height = 10;
+	final private int width = 10;
+
 	private Rectangle2D bounds;
-	
-	public PowerUp() {
-		bounds.setRect(x,y,width,height);
+
+	public PowerUp(states.State powerUp, int x, int y) {
+		bounds = new Rectangle();
+		bounds.setRect(x, y, width, height);
+		this.powerUp = powerUp;
+		
+
 	}
 
 	public Rectangle2D getBounds() {
 		return bounds;
 	}
-	
-	@Override
-	public void draw(Graphics g) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	
+
+	public void draw(Graphics g) {
+		g.setColor(Color.gray);
+		g.fillRect((int) bounds.getX(), (int) bounds.getY(), width, height);
+
+	}
 
 	@Override
 	public void setCoordinates(int x, int y) {
-		this.y = y;
-		
+		bounds.setRect(x, y, width, height);
+
 	}
+	
+	public states.State getPowerUp(){
+		return powerUp;
+		};
 
 	public int getX() {
 		return x;
@@ -41,32 +50,27 @@ public class PowerUp extends GameObject{
 	public int getY() {
 		return y;
 	}
-	
+
 	public int getHeight() {
 		return 0;
 	}
-	
+
 	public int getWidth() {
 		return 0;
 	}
 
-
-
 	@Override
-	public boolean intersect(GameObject gameObject) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean intersect(GameObject ob) {
+		
+
+		return bounds.intersects(ob.getBounds());
 	}
-
-
 
 	@Override
 	public void hit(GameObject g) {
 		// TODO Auto-generated method stub
-		
+
 	}
-
-
 
 	@Override
 	public boolean isDead() {
@@ -74,15 +78,11 @@ public class PowerUp extends GameObject{
 		return false;
 	}
 
-
-
 	@Override
 	public void setHealth(int i) {
 		// TODO Auto-generated method stub
-		
+
 	}
-
-
 
 	@Override
 	public int getHealth() {
@@ -90,23 +90,17 @@ public class PowerUp extends GameObject{
 		return 0;
 	}
 
-
-
 	@Override
 	public void changeDirectionX() {
 		// TODO Auto-generated method stub
-		
+
 	}
-
-
 
 	@Override
 	public void changeDirectionY() {
 		// TODO Auto-generated method stub
-		
+
 	}
-
-
 
 	@Override
 	public int getDirectionX() {
@@ -114,15 +108,11 @@ public class PowerUp extends GameObject{
 		return 0;
 	}
 
-
-
 	@Override
 	public int getDirectionY() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
-
-
 
 	@Override
 	public int getSlope() {
@@ -130,11 +120,9 @@ public class PowerUp extends GameObject{
 		return 0;
 	}
 
-
-
 	@Override
 	public void setSlope(int i) {
 		// TODO Auto-generated method stub
-		
+
 	}
 }

@@ -5,25 +5,29 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import controller.Brick;
+import controller.GameObject;
 import controller.Wall;
 
 public class CreateLevel {
-
+private static GameObject brick;
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		ArrayList<controller.GameObject> level = new ArrayList<controller.GameObject>();
 		ArrayList<controller.GameObject> level2 = new ArrayList<controller.GameObject>();
-		level2.add(new controller.Brick(180,180));
-		level.add(new controller.Brick(180, 180));
-			
-		//		
-//		for (int j = 1; j < 6; j++) {
-//			for (int i = 0; i < 12; i++) {
-//				level.add(new controller.Brick(i * 40, 20*j));
-//			}
-//		}
+		brick = new Brick(180,180);
+		brick.setPowerUp(new states.StatePlayerPowerUpBigger());
+		level2.add(brick);
+		
+		for (int j = 1; j < 6; j++) {
+			for (int i = 0; i < 12; i++) {
+				brick = new controller.Brick(i * 40, 20*j);
+				brick.setPowerUp(new states.StatePlayerPowerUpSmaller());
+				level.add(brick);
+			}
+		}
 
 		Wall left = new Wall(-10, 0, 20, 480);
 		Wall right = new Wall(475, 0, 10, 480);

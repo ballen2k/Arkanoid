@@ -121,7 +121,7 @@ public class GameData extends Observable implements ActionListener {
 				levelData = new LevelData();
 				ballData = new BallData(this);
 				activeGame = true;
-
+				powerUpData= new PowerUpData();
 				userData = new UserData(3, 0);
 
 				setChanged();
@@ -156,7 +156,7 @@ public class GameData extends Observable implements ActionListener {
 			ballData.update();
 
 			// Move the player
-			userData.getPlayer().setCoordinates(mousepos_x - 25, 123);
+			userData.getPlayer().setCoordinates(mousepos_x - (int)(player.getBounds().getWidth()/2), 123);
 			setChanged();
 			notifyObservers(userData);
 
@@ -190,10 +190,18 @@ public class GameData extends Observable implements ActionListener {
 						}
 
 						if (ob.isDead()) {
+							if (ob.hasPowerUp()){
+								powerUpData.addPowerUp(ob.getPowerUp(),ob.getX(),ob.getY());
+							}
+							ob.setHealth(1);
+							
 							it.remove();
-							userData.increasePoints(100);
+							points += 100;
+							
 						}
+						return;
 					}
+				
 				}
 
 				if (b.intersect(player)) {
@@ -223,6 +231,21 @@ public class GameData extends Observable implements ActionListener {
 							- controller.Ball.BALL_HEIGHT, 1, -1);
 				}
 			}
+			/*
+			 * Collision handling for the powerUps
+			 */
+			for (Iterator<controller.GameObject> itPower = powerUpData.getPowerUpList().iterator(); itPower.hasNext();){
+				controller.GameObject pu = itPower.next();
+				if (pu.intersect(userData.getPlayer())){
+					player.setActiveState(pu.getPowerUp());
+					itPower.remove();
+				}
+				
+			}
+			/*
+			 * Move the powerUps
+			 */
+			powerUpData.update();
 
 			ArrayList<controller.GameObject> result = new ArrayList<controller.GameObject>();
 			for (controller.GameObject object : objects) {
@@ -230,6 +253,9 @@ public class GameData extends Observable implements ActionListener {
 			}
 			for (controller.GameObject balls : ballList) {
 				result.add(balls);
+			}
+			for( controller.GameObject powerUp : powerUpData.getPowerUpList()){
+				result.add(powerUp);
 			}
 			setChanged();
 			notifyObservers(result);
