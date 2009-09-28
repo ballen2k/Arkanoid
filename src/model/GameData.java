@@ -60,9 +60,13 @@ public class GameData extends Observable implements ActionListener {
 		controller.MenuItem itemSettings = new controller.MenuItem(this,
 				GameObjectFactory.createMenuState(), "Settings", 180, 260);
 		menuList.add(itemSettings);
+		controller.MenuItem itemEditLevel = new controller.MenuItem(this, 
+				GameObjectFactory.createExitState(), "Create level", 180, 340);
+		menuList.add(itemEditLevel);
 		controller.MenuItem itemExit = new controller.MenuItem(this,
 				GameObjectFactory.createExitState(), "Exit", 180, 300);
 		menuList.add(itemExit);
+
 
 	}
 
