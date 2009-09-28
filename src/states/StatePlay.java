@@ -1,13 +1,30 @@
 package states;
 
-import java.awt.Color;
 import java.awt.*;
 import java.util.*;
 
 import controller.GameObject;
 
 public class StatePlay extends State {
+	private boolean activeGame = false;
+	private model.LevelData levelData;
+	private model.BallData ballData;
+	private model.PowerUpData powerUpData;
+	private model.UserData userData;
+	private controller.Explosion explosion;
+	
+	private int mousepos_x, mousepos_y;
+	private int clicked_x, clicked_y;
+	private boolean clicked = false;
+	
+	private ArrayList<controller.GameObject> result;
+	
 	public void draw(Graphics g, ArrayList<controller.GameObject> objectList, model.UserData userData) {
+		if(explosion == null) {
+			explosion = new controller.Explosion(180, 180);
+		} else {
+			explosion.update(g);
+		}
 		g.setColor(Color.green);
 		for (GameObject go : objectList) {
 			go.draw(g);
@@ -25,5 +42,165 @@ public class StatePlay extends State {
 
 		userData.getPlayer().draw(g);
 
+	}
+	
+	public void setMouse(int pos_x, int pos_y) {
+		this.mousepos_x = pos_x;
+		this.mousepos_y = pos_y;
+	}
+	
+	public void setClick(int pos_x, int pos_y) {
+		this.clicked_x = pos_x;
+		this.clicked_y = pos_y;
+		this.clicked = true;
+	}
+	
+	
+	public void update(model.GameData gameData, model.UserData userData) {
+		if (!activeGame) {
+			levelData = new model.LevelData();
+			ballData = new model.BallData(gameData);
+			activeGame = true;
+			powerUpData = new model.PowerUpData();
+		}
+
+		controller.Player player = userData.getPlayer();
+		ArrayList<controller.GameObject> ballList = ballData.getBallList();
+		ArrayList<controller.GameObject> objects;
+		controller.Level level = gameData.getLevelManager().getActiveLevel();
+
+		if (level == null) {
+			gameData.changeState(controller.GameObjectFactory.createStateGameComplete());
+			return;
+		}
+		objects = level.getLevel();
+
+		// Check if level is complete =)
+		boolean complete = true;
+		for (controller.GameObject ob : objects) {
+			if (ob.isRemovable() == true) {
+				complete = false;
+				break;
+			}
+		}
+		if (complete) {
+			gameData.changeState(controller.GameObjectFactory.createStateLevelComplete());
+			return;
+		}
+
+		// Move all the balls
+		ballData.update();
+
+		// Move the player
+		userData
+				.getPlayer()
+				.setCoordinates(
+						mousepos_x
+								- (int) (player.getBounds().getWidth() / 2),
+						123);
+
+		// Check if one of the balls have hit a brick and handle it
+		// appropriately
+		for (Iterator<controller.GameObject> itB = ballList.iterator(); itB
+				.hasNext();) {
+			controller.GameObject b = itB.next();
+
+			if (b.getBounds().getY() >= player.getBounds().getMaxY()) {
+				// Ball is under the player
+				itB.remove();
+				continue;
+			}
+
+			for (Iterator<controller.GameObject> it = objects.iterator(); it
+					.hasNext();) {
+				controller.GameObject ob = it.next();
+				if (b.intersect(ob)) {
+					ob.hit(b);
+
+					if (b.intersectLeft(ob)) {
+						// b.setSlope(random.nextInt(5) + 5);
+						b.changeDirectionX();
+					} else if (b.intersectRight(ob)) {
+						// b.setSlope(random.nextInt(5) + 5);
+						b.changeDirectionX();
+					} else {
+						// b.setSlope(random.nextInt(5) + 5);
+						b.changeDirectionY();
+					}
+
+					if (ob.isDead()) {
+						if (ob.hasPowerUp()) {
+							powerUpData.addPowerUp(ob.getPowerUp(), ob
+									.getX(), ob.getY());
+						}
+						ob.setHealth(1);
+						explosion = new controller.Explosion((int)ob.getBounds().getCenterX(),
+															 (int)ob.getBounds().getCenterY());
+						it.remove();
+						userData.increasePoints(100);
+
+					}
+					return;
+				}
+
+			}
+
+			if (b.intersect(player)) {
+				if (b.intersectLeft(player)) {
+					b.changeDirectionX();
+				} else if (b.intersectRight(player)) {
+					b.changeDirectionX();
+				} else {
+					// b.setSlope(random.nextInt(5) + 5);
+					b.changeDirectionY();
+				}
+			}
+		}
+
+		if (ballList.isEmpty()) {
+			if (userData.getNumberOfLifes() > 0) {
+				userData.decreaseNumberOfLifes();
+			}
+			if (userData.getNumberOfLifes() == 0) {
+				System.out.println("GAME OVER NOOB");
+				activeGame = false;
+				gameData.changeState(controller.GameObjectFactory.createStateGameOver());
+			} else {
+				ballData.addBall(player.getX() + 25, player.getY()
+						- controller.Ball.BALL_HEIGHT, 1, -1);
+			}
+		}
+		/*
+		 * Collision handling for the powerUps
+		 */
+		for (Iterator<controller.GameObject> itPower = powerUpData
+				.getPowerUpList().iterator(); itPower.hasNext();) {
+			controller.GameObject pu = itPower.next();
+			if (pu.intersect(userData.getPlayer())) {
+				player.setActiveState(pu.getPowerUp());
+				itPower.remove();
+			}
+
+		}
+		/*
+		 * Move the powerUps
+		 */
+		powerUpData.update();
+
+		result = new ArrayList<controller.GameObject>();
+		for (controller.GameObject object : objects) {
+			result.add(object);
+		}
+		for (controller.GameObject balls : ballList) {
+			result.add(balls);
+		}
+		for (controller.GameObject powerUp : powerUpData.getPowerUpList()) {
+			result.add(powerUp);
+		}
+
+	}
+	
+	public ArrayList<controller.GameObject> getObjects() {
+		return result;
 	}
 }

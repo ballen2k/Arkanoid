@@ -38,4 +38,8 @@ public class GameObjectFactory {
 	public static states.State createExitState() {
 		return new states.StateExit();
 	}
+
+	public static states.State createChangeLevelState() {
+		return new states.StateChangeLevel();
+	}
 }

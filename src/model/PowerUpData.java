@@ -11,7 +11,7 @@ public class PowerUpData {
 
 	private ArrayList<GameObject> powerUpList;
 
-	PowerUpData() {
+	public PowerUpData() {
 		this.powerUpList = new ArrayList<GameObject>();
 	}
 

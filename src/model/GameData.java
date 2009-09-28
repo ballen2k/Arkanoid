@@ -49,8 +49,8 @@ public class GameData extends Observable implements ActionListener {
 	public GameData() {
 		userData = new UserData(3, 0);
 
-		setChanged();
-		notifyObservers(userData);
+//		setChanged();
+//		notifyObservers(userData);
 
 		timer = new Timer(25, this);
 		timer.start();
@@ -58,7 +58,7 @@ public class GameData extends Observable implements ActionListener {
 
 		levelManager = new LevelManager();
 		levelManager.loadLevels("fil.f");
-
+/*
 		menuList = new ArrayList<controller.GameObject>();
 		controller.MenuItem itemStart = new controller.MenuItem(this,
 				GameObjectFactory.createPlayState(), "Play!", 180, 180);
@@ -78,6 +78,7 @@ public class GameData extends Observable implements ActionListener {
 				GameObjectFactory.createExitState(), "Exit", 180, 300);
 		menuList.add(itemExit);
 		System.out.println("laddat");
+*/
 	}
 
 	public void changeState(states.State state) {
@@ -105,170 +106,21 @@ public class GameData extends Observable implements ActionListener {
 		mousepos_y = y;
 	}
 
+	public LevelManager getLevelManager() {
+		return levelManager;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-
-		if (activeState instanceof states.StateLevelComplete) {
-			controller.Level level = levelManager.nextLevel();
-			if (level == null) {
-				changeState(new states.StateGameComplete());
-			} else {
-				changeState(new states.StatePlay());
-			}
-		} else if (activeState instanceof states.StatePlay) {
-			// Start new game =)
-			if (!activeGame) {
-				levelData = new LevelData();
-				ballData = new BallData(this);
-				activeGame = true;
-				powerUpData= new PowerUpData();
-				userData = new UserData(3, 0);
-
-				setChanged();
-				notifyObservers(userData);
-			}
-
-			Player player = userData.getPlayer();
-			ArrayList<controller.GameObject> ballList = ballData.getBallList();
-			ArrayList<controller.GameObject> objects;
-			controller.Level level = levelManager.getActiveLevel();
-
-			if (level == null) {
-				changeState(GameObjectFactory.createStateGameComplete());
-				return;
-			}
-			objects = level.getLevel();
-
-			// Check if level is complete =)
-			boolean complete = true;
-			for (controller.GameObject ob : objects) {
-				if (ob.isRemovable() == true) {
-					complete = false;
-					break;
-				}
-			}
-			if (complete) {
-				changeState(GameObjectFactory.createStateLevelComplete());
-				return;
-			}
-
-			// Move all the balls
-			ballData.update();
-
-			// Move the player
-			userData.getPlayer().setCoordinates(mousepos_x - (int)(player.getBounds().getWidth()/2), 123);
-			setChanged();
-			notifyObservers(userData);
-
-			// Check if one of the balls have hit a brick and handle it
-			// appropriately
-			for (Iterator<controller.GameObject> itB = ballList.iterator(); itB
-					.hasNext();) {
-				controller.GameObject b = itB.next();
-
-				if (b.getBounds().getY() >= player.getBounds().getMaxY()) {
-					// Ball is under the player
-					itB.remove();
-					continue;
-				}
-
-				for (Iterator<controller.GameObject> it = objects.iterator(); it
-						.hasNext();) {
-					controller.GameObject ob = it.next();
-					if (b.intersect(ob)) {
-						ob.hit(b);
-
-						if (b.intersectLeft(ob)) {
-							// b.setSlope(random.nextInt(5) + 5);
-							b.changeDirectionX();
-						} else if (b.intersectRight(ob)) {
-							// b.setSlope(random.nextInt(5) + 5);
-							b.changeDirectionX();
-						} else {
-							// b.setSlope(random.nextInt(5) + 5);
-							b.changeDirectionY();
-						}
-
-						if (ob.isDead()) {
-							if (ob.hasPowerUp()){
-								powerUpData.addPowerUp(ob.getPowerUp(),ob.getX(),ob.getY());
-							}
-							ob.setHealth(1);
-							
-							it.remove();
-							points += 100;
-							
-						}
-						return;
-					}
-				
-				}
-
-				if (b.intersect(player)) {
-					if (b.intersectLeft(player)) {
-						b.changeDirectionX();
-					} else if (b.intersectRight(player)) {
-						b.changeDirectionX();
-					} else {
-						// b.setSlope(random.nextInt(5) + 5);
-						b.changeDirectionY();
-					}
-				}
-			}
-
-			if (ballList.isEmpty()) {
-				if (userData.getNumberOfLifes() > 0) {
-					userData.decreaseNumberOfLifes();
-					setChanged();
-					notifyObservers(userData);
-				}
-				if (userData.getNumberOfLifes() == 0) {
-					System.out.println("GAME OVER NOOB");
-					activeGame = false;
-					this.changeState(GameObjectFactory.createStateGameOver());
-				} else {
-					ballData.addBall(player.getX() + 25, player.getY()
-							- controller.Ball.BALL_HEIGHT, 1, -1);
-				}
-			}
-			/*
-			 * Collision handling for the powerUps
-			 */
-			for (Iterator<controller.GameObject> itPower = powerUpData.getPowerUpList().iterator(); itPower.hasNext();){
-				controller.GameObject pu = itPower.next();
-				if (pu.intersect(userData.getPlayer())){
-					player.setActiveState(pu.getPowerUp());
-					itPower.remove();
-				}
-				
-			}
-			/*
-			 * Move the powerUps
-			 */
-			powerUpData.update();
-
-			ArrayList<controller.GameObject> result = new ArrayList<controller.GameObject>();
-			for (controller.GameObject object : objects) {
-				result.add(object);
-			}
-			for (controller.GameObject balls : ballList) {
-				result.add(balls);
-			}
-			for( controller.GameObject powerUp : powerUpData.getPowerUpList()){
-				result.add(powerUp);
-			}
-			setChanged();
-			notifyObservers(result);
-		} else {
-			if (clicked) {
-				activeState.setClick(clicked_x, clicked_y);
-			}
-			activeState.setMouse(mousepos_x, mousepos_y);
-			activeState.update(this);
-			setChanged();
-			notifyObservers(activeState.getObjects());
+		if (clicked) {
+			activeState.setClick(clicked_x, clicked_y);
 		}
-
+		activeState.setMouse(mousepos_x, mousepos_y);
+		activeState.update(this, userData);
+		setChanged();
+		notifyObservers(userData);
+		setChanged();
+		notifyObservers(activeState.getObjects());
 	}
 
 	public BallData getBallData() {

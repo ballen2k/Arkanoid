@@ -20,7 +20,8 @@ private static GameObject brick;
 		brick = new Brick(180,180);
 		brick.setPowerUp(new states.StatePlayerPowerUpBigger());
 		level2.add(brick);
-		
+		level.add(brick);
+
 		for (int j = 1; j < 6; j++) {
 			for (int i = 0; i < 12; i++) {
 				brick = new controller.Brick(i * 40, 20*j);

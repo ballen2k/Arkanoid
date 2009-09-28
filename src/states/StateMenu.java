@@ -21,7 +21,7 @@ public class StateMenu extends State {
 		}
 	}
 	
-	public void update(model.GameData gameData) { 
+	public void update(model.GameData gameData, model.UserData userData) { 
 		menuList = new ArrayList<controller.GameObject>();
 		controller.MenuItem itemStart = new controller.MenuItem(gameData,
 				controller.GameObjectFactory.createPlayState(), "Play!", 180, 180);
