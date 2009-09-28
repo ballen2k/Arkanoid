@@ -12,6 +12,8 @@ import java.util.Random;
 
 import javax.swing.Timer;
 
+import states.State;
+
 import controller.Ball;
 import controller.GameObjectFactory;
 import controller.LevelManager;
@@ -147,8 +149,14 @@ public class GameData extends Observable implements ActionListener {
 			setChanged();
 			notifyObservers(menuList);
 		} else if (activeState instanceof states.StateLevelComplete) {
-			levelManager.nextLevel();
-			changeState(new states.StatePlay());
+			controller.Level level = levelManager.nextLevel();
+			if(level == null) {
+				changeState(new states.StateGameComplete());
+			} else {
+				changeState(new states.StatePlay());
+			}
+		} else if (activeState instanceof states.StateGameComplete) {
+			//TODO Create a menu?
 		} else if (activeState instanceof states.StatePlay) {
 			// Start new game =)
 			if (!activeGame) {
@@ -163,7 +171,7 @@ public class GameData extends Observable implements ActionListener {
 			ArrayList<controller.GameObject> ballList = ballData.getBallList();
 			ArrayList<controller.GameObject> objects;
 			objects = levelManager.getActiveLevel().getLevel();
-
+			
 			// Check if level is complete =)
 			boolean complete = true;
 			for (controller.GameObject ob : objects) {

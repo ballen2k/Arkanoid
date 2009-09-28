@@ -72,7 +72,9 @@ public class GameView extends JPanel implements Observer {
 			//TODO Change to next level 
 		} else if(activeState instanceof states.StateExit) {
 			System.exit(0);
-		} 
+		} else if(activeState instanceof states.StateGameComplete) {
+			g.drawString("Game Completed =======================|=|>", 180,180);
+		}
 	}
 
 	public void update(Observable arg0, Object arg1) {
