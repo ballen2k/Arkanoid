@@ -14,7 +14,9 @@ public class CreateLevel {
 	 */
 	public static void main(String[] args) {
 		ArrayList<controller.GameObject> level = new ArrayList<controller.GameObject>();
-
+		ArrayList<controller.GameObject> level2 = new ArrayList<controller.GameObject>();
+		level2.add(new controller.Brick(180,180));
+		
 		for (int j = 1; j < 6; j++) {
 			for (int i = 0; i < 12; i++) {
 				level.add(new controller.Brick(i * 40, 20*j));
@@ -30,11 +32,18 @@ public class CreateLevel {
 		level.add(right);
 		level.add(up);
 //		level.add(down);
-
+		
+		level2.add(left);
+		level2.add(right);
+		level2.add(up);
+		
+		ArrayList<controller.Level> levelList = new ArrayList<controller.Level>();
+		levelList.add(new controller.Level(level2));
+		levelList.add(new controller.Level(level));
 		try {
 			FileOutputStream fs = new FileOutputStream("fil.f");
 			ObjectOutputStream ob = new ObjectOutputStream(fs);
-			ob.writeObject(level);
+			ob.writeObject(levelList);
 			ob.close();
 			fs.close();
 		} catch (IOException e) {
