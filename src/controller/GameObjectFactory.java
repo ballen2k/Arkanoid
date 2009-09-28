@@ -22,6 +22,18 @@ public class GameObjectFactory {
 		return new states.StatePlay();
 	}
 	
+	public static states.State createStateGameOver() {
+		return new states.StateGameOver();
+	}
+	
+	public static states.State createStateGameComplete() {
+		return new states.StateGameComplete();
+	}
+	
+	public static states.State createStateLevelComplete() {
+		return new states.StateLevelComplete();
+	}
+	
 	public static states.State createExitState() {
 		return new states.StateExit();
 	}

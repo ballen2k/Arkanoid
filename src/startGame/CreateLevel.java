@@ -16,12 +16,14 @@ public class CreateLevel {
 		ArrayList<controller.GameObject> level = new ArrayList<controller.GameObject>();
 		ArrayList<controller.GameObject> level2 = new ArrayList<controller.GameObject>();
 		level2.add(new controller.Brick(180,180));
-		
-		for (int j = 1; j < 6; j++) {
-			for (int i = 0; i < 12; i++) {
-				level.add(new controller.Brick(i * 40, 20*j));
-			}
-		}
+		level.add(new controller.Brick(180, 180));
+			
+		//		
+//		for (int j = 1; j < 6; j++) {
+//			for (int i = 0; i < 12; i++) {
+//				level.add(new controller.Brick(i * 40, 20*j));
+//			}
+//		}
 
 		Wall left = new Wall(-10, 0, 20, 480);
 		Wall right = new Wall(475, 0, 10, 480);

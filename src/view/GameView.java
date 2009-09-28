@@ -19,8 +19,10 @@ public class GameView extends JPanel implements Observer {
 	private static final long serialVersionUID = 1L;
 
 	private GameData gameData;
-	private states.State activeState;
+	private states.State activeState = new states.StateMenu();
 	private ArrayList<controller.GameObject> drawObjects;
+	
+	private model.UserData userData;
 	
 	/*
 	 * Here's where all the action is.
@@ -28,6 +30,7 @@ public class GameView extends JPanel implements Observer {
 	public GameView(GameData gameData) {
 		drawObjects = new ArrayList<controller.GameObject>();
 		activeState = new states.StateMenu();
+		userData = new model.UserData(0,0);
 		this.gameData = gameData;
 		this.setBackground(Color.black);
 
@@ -37,44 +40,7 @@ public class GameView extends JPanel implements Observer {
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
-
-		if (activeState instanceof states.StateMenu || activeState instanceof states.StateGameOver) {
-			if(activeState instanceof states.StateGameOver) {
-				g.setColor(Color.red);
-				g.drawString("GAME OVER", 190, 150);
-			}
-			
-			g.setColor(Color.orange);
-		
-			for(controller.GameObject ob :drawObjects) {
-				ob.draw(g);
-			}
-		} else if(activeState instanceof states.StatePlay) {
-			g.setColor(Color.green);
-			for (GameObject go : drawObjects) {
-				go.draw(g);
-			}
-
-			g.setColor(Color.black);
-			g.fillRect(0, 445, 1000, 200);
-			g.setColor(Color.green);
-			g.drawLine(0, 445, 500, 445);
-			g.drawString("Lives: "
-					+ Integer.toString(gameData.getPlayer().getHealth()), 50,
-					460);
-			g.drawString("Points: "
-					+ Integer.toString(gameData.points), 150, 460);
-
-			gameData.getPlayer().draw(g);
-		} else if(activeState instanceof states.StateLevelComplete) {
-			g.setColor(Color.orange);
-			g.drawString("Level is complete!", 180, 180);
-			//TODO Change to next level 
-		} else if(activeState instanceof states.StateExit) {
-			System.exit(0);
-		} else if(activeState instanceof states.StateGameComplete) {
-			g.drawString("Game Completed =======================|=|>", 180,180);
-		}
+		activeState.draw(g, drawObjects, userData);
 	}
 
 	public void update(Observable arg0, Object arg1) {
@@ -82,6 +48,8 @@ public class GameView extends JPanel implements Observer {
 			drawObjects = (ArrayList<controller.GameObject>)arg1;
 		} else if(arg1 instanceof states.State) {
 			activeState = (states.State)arg1;
+		} else if(arg1 instanceof model.UserData) {
+			userData = (model.UserData)arg1;
 		}
 		repaint();
 	}

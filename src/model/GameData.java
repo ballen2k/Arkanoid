@@ -27,7 +27,6 @@ import controller.Wall;
 public class GameData extends Observable implements ActionListener {
 
 	private LevelData levelData;
-	private Player player;
 	private BallData ballData;
 	private PowerUpData powerUpData;
 	private Timer timer;
@@ -45,12 +44,14 @@ public class GameData extends Observable implements ActionListener {
 	private boolean activeGame = false;
 
 	private LevelManager levelManager;
+	private UserData userData;
 
 	public GameData() {
-		/*
-		 * levelData = new LevelData(); player = new Player();
-		 * player.setHealth(3); ballData = new BallData(this);
-		 */
+		userData = new UserData(3,0);
+		
+		setChanged();
+		notifyObservers(userData);
+		
 		timer = new Timer(25, this);
 		timer.start();
 		activeState = new states.StateMenu();
@@ -90,7 +91,7 @@ public class GameData extends Observable implements ActionListener {
 	}
 
 	public Player getPlayer() {
-		return player;
+		return userData.getPlayer();
 	}
 
 	public void click(int x, int y) {
@@ -108,46 +109,52 @@ public class GameData extends Observable implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		if (activeState instanceof states.StateMenu
 				|| activeState instanceof states.StateGameOver) {
-			menuList = new ArrayList<controller.GameObject>();
-			controller.MenuItem itemStart = new controller.MenuItem(this,
-					GameObjectFactory.createPlayState(), "Play!", 180, 180);
-			menuList.add(itemStart);
-
-			controller.MenuItem itemChooseLevel = new controller.MenuItem(this,
-					GameObjectFactory.createPlayState(), "Choose level", 180,
-					220);
-			menuList.add(itemChooseLevel);
-			controller.MenuItem itemSettings = new controller.MenuItem(this,
-					GameObjectFactory.createMenuState(), "Settings", 180, 260);
-			menuList.add(itemSettings);
-			controller.MenuItem itemEditLevel = new controller.MenuItem(this,
-					GameObjectFactory.createExitState(), "Create level", 180,
-					340);
-			menuList.add(itemEditLevel);
-
-			controller.MenuItem itemExit = new controller.MenuItem(this,
-					GameObjectFactory.createExitState(), "Exit", 180, 300);
-			menuList.add(itemExit);
+//			menuList = new ArrayList<controller.GameObject>();
+//			controller.MenuItem itemStart = new controller.MenuItem(this,
+//					GameObjectFactory.createPlayState(), "Play!", 180, 180);
+//			menuList.add(itemStart);
+//
+//			controller.MenuItem itemChooseLevel = new controller.MenuItem(this,
+//					GameObjectFactory.createPlayState(), "Choose level", 180,
+//					220);
+//			menuList.add(itemChooseLevel);
+//			controller.MenuItem itemSettings = new controller.MenuItem(this,
+//					GameObjectFactory.createMenuState(), "Settings", 180, 260);
+//			menuList.add(itemSettings);
+//			controller.MenuItem itemEditLevel = new controller.MenuItem(this,
+//					GameObjectFactory.createExitState(), "Create level", 180,
+//					340);
+//			menuList.add(itemEditLevel);
+//
+//			controller.MenuItem itemExit = new controller.MenuItem(this,
+//					GameObjectFactory.createExitState(), "Exit", 180, 300);
+//			menuList.add(itemExit);
+//			
+//			for (controller.GameObject mi : menuList) {
+//				if (mi.getBounds().contains(new Point(mousepos_x, mousepos_y))) {
+//					mi.setActive();
+//				} else {
+//					mi.setNonActive();
+//				}
+//			}
+//
+//			if (clicked) {
+//				for (controller.GameObject mi : menuList) {
+//					if (mi.getBounds()
+//							.contains(new Point(clicked_x, clicked_y))) {
+//						mi.pushed();
+//					}
+//				}
+//			}
+//			clicked = false;
 			
-			for (controller.GameObject mi : menuList) {
-				if (mi.getBounds().contains(new Point(mousepos_x, mousepos_y))) {
-					mi.setActive();
-				} else {
-					mi.setNonActive();
-				}
+			activeState.setMouse(mousepos_x, mousepos_y);
+			activeState.update(this);
+			if(clicked) {
+				activeState.setClick(clicked_x, clicked_y);
 			}
-
-			if (clicked) {
-				for (controller.GameObject mi : menuList) {
-					if (mi.getBounds()
-							.contains(new Point(clicked_x, clicked_y))) {
-						mi.pushed();
-					}
-				}
-			}
-			clicked = false;
 			setChanged();
-			notifyObservers(menuList);
+			notifyObservers(activeState.getObjects());
 		} else if (activeState instanceof states.StateLevelComplete) {
 			controller.Level level = levelManager.nextLevel();
 			if(level == null) {
@@ -156,21 +163,32 @@ public class GameData extends Observable implements ActionListener {
 				changeState(new states.StatePlay());
 			}
 		} else if (activeState instanceof states.StateGameComplete) {
-			//TODO Create a menu?
+			setChanged();
+			//notifyObservers();
 		} else if (activeState instanceof states.StatePlay) {
 			// Start new game =)
 			if (!activeGame) {
 				levelData = new LevelData();
-				player = new Player();
-				player.setHealth(3);
 				ballData = new BallData(this);
 				activeGame = true;
+				
+				userData = new UserData(3,0);
+				
+				setChanged();
+				notifyObservers(userData);
 			}
 
-			Player player = getPlayer();
+			Player player = userData.getPlayer();
 			ArrayList<controller.GameObject> ballList = ballData.getBallList();
 			ArrayList<controller.GameObject> objects;
-			objects = levelManager.getActiveLevel().getLevel();
+			controller.Level level = levelManager.getActiveLevel();
+			
+			if(level == null) {
+				changeState(GameObjectFactory.createStateGameComplete());
+				return;
+			}
+			objects = level.getLevel();
+			
 			
 			// Check if level is complete =)
 			boolean complete = true;
@@ -181,7 +199,7 @@ public class GameData extends Observable implements ActionListener {
 				}
 			}
 			if (complete) {
-				changeState(new states.StateLevelComplete());
+				changeState(GameObjectFactory.createStateLevelComplete());
 				return;
 			}
 
@@ -189,7 +207,9 @@ public class GameData extends Observable implements ActionListener {
 			ballData.update();
 
 			// Move the player
-			player.setCoordinates(mousepos_x - 25, 123);
+			userData.getPlayer().setCoordinates(mousepos_x - 25, 123);
+			setChanged();
+			notifyObservers(userData);
 
 			// Check if one of the balls have hit a brick and handle it
 			// appropriately
@@ -222,7 +242,7 @@ public class GameData extends Observable implements ActionListener {
 
 						if (ob.isDead()) {
 							it.remove();
-							points += 100;
+							userData.increasePoints(100);
 						}
 					}
 				}
@@ -240,13 +260,15 @@ public class GameData extends Observable implements ActionListener {
 			}
 
 			if (ballList.isEmpty()) {
-				if (player.getHealth() != 0) {
-					player.setHealth(player.getHealth() - 1);
+				if (userData.getNumberOfLifes() > 0) {
+					userData.decreaseNumberOfLifes();
+					setChanged();
+					notifyObservers(userData);
 				}
-				if (player.isDead()) {
+				if (userData.getNumberOfLifes() == 0) {
 					System.out.println("GAME OVER NOOB");
 					activeGame = false;
-					this.changeState(new states.StateGameOver());
+					this.changeState(GameObjectFactory.createStateGameOver());
 				} else {
 					ballData.addBall(player.getX() + 25, player.getY()
 							- controller.Ball.BALL_HEIGHT, 1, -1);
