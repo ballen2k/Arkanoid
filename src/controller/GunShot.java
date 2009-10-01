@@ -30,7 +30,8 @@ public class GunShot extends GameObject {
 
 	public void draw(Graphics g) {
 		g.setColor(Color.yellow);
-		g.fillRect((int) bounds.getX(), (int) bounds.getY(), WIDTH, HEIGHT);
+		g.fill3DRect((int) bounds.getX(), (int) bounds.getY(), WIDTH, HEIGHT,true);
+		
 		
 	}
 

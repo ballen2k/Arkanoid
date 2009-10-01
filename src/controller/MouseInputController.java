@@ -19,9 +19,7 @@ public class MouseInputController implements MouseListener, MouseMotionListener 
 	public void mouseClicked(MouseEvent arg0) {
 		this.gameData.click(arg0.getX(), arg0.getY());
 		
-		if (player.getPowerUp() instanceof states.StatePlayerPowerUpGun){
-			
-		}
+		
 		
 		
 	}
@@ -40,8 +38,8 @@ public class MouseInputController implements MouseListener, MouseMotionListener 
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-
+		
+		this.gameData.click(arg0.getX(), arg0.getY());
 	}
 
 	@Override
@@ -52,7 +50,7 @@ public class MouseInputController implements MouseListener, MouseMotionListener 
 
 	@Override
 	public void mouseDragged(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+		gameData.mouseMove(arg0.getX(), arg0.getY());
 
 	}
 

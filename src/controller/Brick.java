@@ -60,7 +60,8 @@ public class Brick extends GameObject implements Serializable {
 
 	public void draw(Graphics g) {
 		g.setColor(Color.red);
-		g.fillRect(this.x, this.y, this.width, this.height);
+		g.fill3DRect(this.x, this.y, this.width, this.height,true);
+		
 
 	}
 
