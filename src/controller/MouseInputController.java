@@ -18,6 +18,12 @@ public class MouseInputController implements MouseListener, MouseMotionListener 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		this.gameData.click(arg0.getX(), arg0.getY());
+		
+		if (player.getPowerUp() instanceof states.StatePlayerPowerUpGun){
+			
+		}
+		
+		
 	}
 
 	@Override

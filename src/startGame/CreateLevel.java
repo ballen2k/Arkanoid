@@ -25,7 +25,7 @@ private static GameObject brick;
 		for (int j = 1; j < 6; j++) {
 			for (int i = 0; i < 12; i++) {
 				brick = new controller.Brick(i * 40, 20*j);
-				brick.setPowerUp(new states.StatePlayerPowerUpSmaller());
+				brick.setPowerUp(new states.StatePlayerPowerUpGun());
 				level.add(brick);
 			}
 		}

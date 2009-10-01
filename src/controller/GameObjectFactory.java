@@ -10,6 +10,11 @@ public class GameObjectFactory {
 		
 		return new PowerUp(powerUp, x, y);
 	}
+	public static GameObject createGunShot(int x, int y) {
+		
+		return new GunShot(x, y);
+	}
+	
 	
 	public static GameObject createBall(int x, int y, int directionX, int directionY) {
 		return new Ball(x,y,directionX,directionY);

@@ -28,7 +28,8 @@ public class GameData extends Observable implements ActionListener {
 
 	private LevelData levelData;
 	private BallData ballData;
-	private PowerUpData powerUpData;
+//	private PowerUpData powerUpData;
+//	private GunShotData gunShotdata;
 	private Timer timer;
 	private Random random = new Random();
 	private states.State activeState;
@@ -114,6 +115,7 @@ public class GameData extends Observable implements ActionListener {
 	public void actionPerformed(ActionEvent arg0) {
 		if (clicked) {
 			activeState.setClick(clicked_x, clicked_y);
+			clicked=false;
 		}
 		activeState.setMouse(mousepos_x, mousepos_y);
 		activeState.update(this, userData);

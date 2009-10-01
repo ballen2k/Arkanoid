@@ -42,7 +42,12 @@ public class Player extends GameObject {
 			g.fillRect(x, y, widthBigger, height);
 		} else if (activeState instanceof states.StatePlayerPowerUpSmaller) {
 			g.fillRect(x, y, widthSmaller, height);
-		} else {
+		} else if (activeState instanceof states.StatePlayerPowerUpGun){
+			g.fillRect(x, y, width, height);
+			g.setColor(Color.black);
+			g.fillRect(x+5, y, 3, 5);
+			g.fillRect(x+width-6, y, 3, 5);
+		}else {
 			g.fillRect(x, y, width, height);
 		}
 
@@ -99,6 +104,9 @@ public class Player extends GameObject {
 		}
 
 	}
+	public states.State getPowerUp(){
+		return activeState;
+		};
 
 	@Override
 	public void hit(GameObject g) {
