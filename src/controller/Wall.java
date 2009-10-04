@@ -19,6 +19,7 @@ public class Wall extends GameObject implements Serializable {
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 	@Override
 	public void changeDirectionY() {

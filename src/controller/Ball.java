@@ -11,6 +11,12 @@ public class Ball extends GameObject {
 	private int y;
 	public static final int BALL_WIDTH = 10;
 	public static final int BALL_HEIGHT = 10;
+	private final int MAX_SLOPE = 10;
+	public int getMAX_SLOPE() {
+		return MAX_SLOPE;
+	}
+
+
 
 	private int directionX;
 	private int directionY;
@@ -21,7 +27,8 @@ public class Ball extends GameObject {
 		this.y = y;
 		this.directionX = directionX;
 		this.directionY = directionY;
-		this.slope=5;
+		this.slope=1;
+		
 		
 		outerBounds = new Rectangle();
 	}
@@ -83,22 +90,40 @@ public class Ball extends GameObject {
 	
 	public boolean intersectLeft(GameObject object) {
 		Rectangle2D obBounds = object.getBounds();
-		
+		double whichHeight;
+		//the check for right or left collision needs a thin bounds rect
+		// when checking bricks,
+		// or else it will collide with the top/bottom collission.
+		if (object instanceof controller.Brick){
+			whichHeight = 1;
+		}else{
+		whichHeight = obBounds.getHeight()-5;
+		}
 		// Create a temp rectangle to the left of the object
 		Rectangle2D leftZone = new Rectangle();
-		leftZone.setRect(obBounds.getX()-5, obBounds.getY()+5, 5, obBounds.getHeight()-5);
+		leftZone.setRect(obBounds.getX()-5, obBounds.getY()+5, 5, whichHeight);
+		
 		
 		return outerBounds.intersects(leftZone);
 	}
 	
 	public boolean intersectRight(GameObject object) {
 		Rectangle2D obBounds = object.getBounds();
+		//the check for right or left collision needs a thin bounds rect
+		// when checking bricks,
+		// or else it will collide with the top/bottom collission.
+		double whichHeight;
+		if (object instanceof controller.Brick){
+			whichHeight = 1;
+		}else{
+		whichHeight = obBounds.getHeight()-5;
+		}
 		
 		// Create a temp rectangle to the right of the object
 		Rectangle2D rightZone = new Rectangle();
 		rightZone.setRect(obBounds.getX()+obBounds.getWidth(), 
 						 obBounds.getY()+5, 5, 
-						 obBounds.getHeight()-5);
+						 whichHeight);
 		
 		return outerBounds.intersects(rightZone);
 	}

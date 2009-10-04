@@ -55,7 +55,9 @@ public abstract class GameObject {
 	public void setPowerUp(states.State powerUp){
 		
 	}
-	
+	public int getMAX_SLOPE() {
+		return 0;
+	};
 	public abstract Rectangle2D getBounds();
 
 	public boolean isRemovable() { return false; }

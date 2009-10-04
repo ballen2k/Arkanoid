@@ -29,7 +29,7 @@ public class Explosion {
 			
 			this.random = new Random();
 			this.velocity_x = (random.nextInt(6))*Math.pow(-1, random.nextInt(2));
-			System.out.println(velocity_x);
+			//System.out.println(velocity_x);
 			this.velocity_y = (random.nextInt(3)+1)*Math.pow(-1, random.nextInt(2)); 
 			frameCount = 0;
 		}

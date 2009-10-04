@@ -2,7 +2,8 @@ package states;
 
 import java.awt.*;
 import java.util.*;
-
+import java.math.*;
+import java.lang.Math;
 import controller.GameObject;
 
 public class StatePlay extends State {
@@ -116,15 +117,27 @@ public class StatePlay extends State {
 				if (b.intersect(ob)) {
 					ob.hit(b);
 
+					
+					
+					
 					if (b.intersectLeft(ob)) {
 						// b.setSlope(random.nextInt(5) + 5);
 						b.changeDirectionX();
+						System.out.println("IntersectLeft");
+					
+						
 					} else if (b.intersectRight(ob)) {
 						// b.setSlope(random.nextInt(5) + 5);
 						b.changeDirectionX();
+						System.out.println("Intersectright");
+				
+					
 					} else {
+						//System.out.println("intersectar inte med kanterna");
 						// b.setSlope(random.nextInt(5) + 5);
 						b.changeDirectionY();
+						System.out.println("IntersectVanligt");
+						
 					}
 
 					if (ob.isDead()) {
@@ -138,21 +151,34 @@ public class StatePlay extends State {
 								.getCenterY());
 						it.remove();
 						userData.increasePoints(100);
-
+						
 					}
-					return;
+					break;
 				}
 
 			}
 
 			if (b.intersect(player)) {
 				if (b.intersectLeft(player)) {
+					
 					b.changeDirectionX();
+
 				} else if (b.intersectRight(player)) {
 					b.changeDirectionX();
 				} else {
-					// b.setSlope(random.nextInt(5) + 5);
+					int slope;
+					//special case when the balls hit the player far to the left or right. 
+					if (b.getX()+b.getWidth()/2<player.getX() || b.getX()+b.getWidth()/2 > player.getX()+player.getWidth()){
+						b.setSlope(b.getMAX_SLOPE());
+						
+					}
+					
+					//ball = (b.getX()+b.getWidth()/2-player.getX());
+					//System.out.println(ball);
+				//	b.setSlope((int)(b.getX()/(player.getX()+(player.getWidth()/2)))*10);
+					System.out.println((double)Math.abs((b.getX()+b.getWidth()/2)-(player.getX()+player.getWidth()/2))/(player.getWidth()/2));
 					b.changeDirectionY();
+					b.setSlope((int)((double)Math.abs((b.getX()+b.getWidth()/2)-(player.getX()+player.getWidth()/2))/(player.getWidth()/2)*b.getMAX_SLOPE()));
 				}
 			}
 		}
