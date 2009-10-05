@@ -24,7 +24,7 @@ public class StatePlay extends State {
 	public void draw(Graphics g, ArrayList<controller.GameObject> objectList,
 			model.UserData userData) {
 		if (explosion == null) {
-			explosion = new controller.Explosion(180, 180);
+			
 		} else {
 			explosion.update(g);
 		}
@@ -207,6 +207,7 @@ public class StatePlay extends State {
 			if (pu.intersect(userData.getPlayer())) {
 				player.setActiveState(pu.getPowerUp());
 				itPower.remove();
+				userData.increasePoints(100);
 			}
 
 		}
