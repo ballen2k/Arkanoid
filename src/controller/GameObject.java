@@ -26,6 +26,7 @@ public abstract class GameObject {
 	public abstract boolean intersect(GameObject gameObject);
 	public boolean intersectLeft(GameObject object) { return false; }
 	public boolean intersectRight(GameObject object) { return false; }
+	public boolean intersectLeftRight(GameObject object) {return false;}
 	
 	public void pushed() { return; }
 	public void setActive() { return; }

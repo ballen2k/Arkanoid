@@ -105,7 +105,7 @@ public class StatePlay extends State {
 				.hasNext();) {
 			controller.GameObject b = itB.next();
 
-			if (b.getBounds().getY() >= player.getBounds().getMaxY()) {
+			if (b.getBounds().getY() >= player.getBounds().getY()) {
 				// Ball is under the player
 				itB.remove();
 				continue;
@@ -116,30 +116,14 @@ public class StatePlay extends State {
 				controller.GameObject ob = it.next();
 				if (b.intersect(ob)) {
 					ob.hit(b);
-
-					
-					
-					
-					if (b.intersectLeft(ob)) {
-						// b.setSlope(random.nextInt(5) + 5);
+					if(b.intersectLeftRight(ob)){
 						b.changeDirectionX();
-						System.out.println("IntersectLeft");
-					
 						
-					} else if (b.intersectRight(ob)) {
-						// b.setSlope(random.nextInt(5) + 5);
-						b.changeDirectionX();
-						System.out.println("Intersectright");
-				
-					
-					} else {
-						//System.out.println("intersectar inte med kanterna");
-						// b.setSlope(random.nextInt(5) + 5);
+					}else{
 						b.changeDirectionY();
-						System.out.println("IntersectVanligt");
-						
+					
 					}
-
+					
 					if (ob.isDead()) {
 						if (ob.hasPowerUp()) {
 							powerUpData.addPowerUp(ob.getPowerUp(), ob.getX(),
@@ -159,28 +143,18 @@ public class StatePlay extends State {
 			}
 
 			if (b.intersect(player)) {
-				if (b.intersectLeft(player)) {
-					
-					b.changeDirectionX();
-
-				} else if (b.intersectRight(player)) {
-					b.changeDirectionX();
-				} else {
-					int slope;
-					//special case when the balls hit the player far to the left or right. 
-					if (b.getX()+b.getWidth()/2<player.getX() || b.getX()+b.getWidth()/2 > player.getX()+player.getWidth()){
-						b.setSlope(b.getMAX_SLOPE());
-						
-					}
-					
-					//ball = (b.getX()+b.getWidth()/2-player.getX());
-					//System.out.println(ball);
-				//	b.setSlope((int)(b.getX()/(player.getX()+(player.getWidth()/2)))*10);
-					System.out.println((double)Math.abs((b.getX()+b.getWidth()/2)-(player.getX()+player.getWidth()/2))/(player.getWidth()/2));
+				
+				
+				//special case when the balls hit the player far to the left or right. 
+				if (b.getX()+b.getWidth()/2<player.getX() || b.getX()+b.getWidth()/2 > player.getX()+player.getWidth()){
+					b.setSlope(b.getMAX_SLOPE());
 					b.changeDirectionY();
-					b.setSlope((int)((double)Math.abs((b.getX()+b.getWidth()/2)-(player.getX()+player.getWidth()/2))/(player.getWidth()/2)*b.getMAX_SLOPE()));
+					
+				}else{
+				b.changeDirectionY();
+				b.setSlope((int)((double)Math.abs((b.getX()+b.getWidth()/2)-(player.getX()+player.getWidth()/2))/(player.getWidth()/2)*b.getMAX_SLOPE()));
 				}
-			}
+				}
 		}
 
 		if (ballList.isEmpty()) {
