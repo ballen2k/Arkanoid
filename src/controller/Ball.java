@@ -86,10 +86,10 @@ public class Ball extends GameObject {
 		Rectangle2D obBounds = object.getBounds();
 		Rectangle2D leftZone = new Rectangle();
 		Rectangle2D rightZone = new Rectangle();
-		leftZone.setRect(obBounds.getX() - 5, obBounds.getY() + 3, 5, obBounds
-				.getHeight() - 6);
+		leftZone.setRect(obBounds.getX() - 9, obBounds.getY() + 1, 9, obBounds
+				.getHeight() - 2);
 		rightZone.setRect(obBounds.getX() + obBounds.getWidth(), obBounds
-				.getY() + 3, 5, obBounds.getHeight() - 6);
+				.getY() + 1, 9, obBounds.getHeight() - 2);
 
 		return (outerBounds.intersects(leftZone) || outerBounds
 				.intersects(rightZone)
