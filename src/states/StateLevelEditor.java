@@ -16,6 +16,7 @@ public class StateLevelEditor extends State {
 	private int clicked_x, clicked_y;
 	private boolean clicked = false;
 	private java.awt.Color activeColor;
+	private State activePowerUp = null;
 
 	public StateLevelEditor() {
 		levelObjects = new ArrayList<controller.GameObject>();
@@ -37,6 +38,7 @@ public class StateLevelEditor extends State {
 			
 		}
 		activeColor = gameData.getLevelManager().getColor();
+		activePowerUp = gameData.getLevelManager().getPowerUp();
 		
 		menuList = new ArrayList<controller.GameObject>();
 		controller.MenuItem itemStart = new controller.MenuItem(gameData,
@@ -51,6 +53,13 @@ public class StateLevelEditor extends State {
 				controller.GameObjectFactory.createChangeLevelColor(java.awt.Color.blue), "Color: Blue", 220, 400);
 		menuList.add(itemColorBlue);
 
+		controller.MenuItem itemPowerUpGun = new controller.MenuItem(gameData, 
+				controller.GameObjectFactory.createSetPowerUp(new StatePlayerPowerUpGun()), "PowerUp: Gun", 20, 360);
+		menuList.add(itemPowerUpGun);
+
+		controller.MenuItem itemPowerUpBigger = new controller.MenuItem(gameData, 
+				controller.GameObjectFactory.createSetPowerUp(new StatePlayerPowerUpBigger()), "PowerUp: Bigger", 120, 360);
+		menuList.add(itemPowerUpBigger);
 		
 		for (controller.GameObject mi : menuList) {
 			if (mi.getBounds().contains(new Point(mousepos_x, mousepos_y))) {
@@ -84,6 +93,9 @@ public class StateLevelEditor extends State {
 			for(controller.GameObject o : hiddenObjects) {			
 				if(o.getBounds().contains(new Point(clicked_x, clicked_y))) {
 					controller.Brick tempBrick = new controller.Brick(o.getX(), o.getY(), activeColor);
+					if(activePowerUp != null) {
+						tempBrick.setPowerUp(activePowerUp);
+					}
 					levelObjects.add(tempBrick);
 				}
 			}

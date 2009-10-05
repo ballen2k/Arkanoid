@@ -59,4 +59,8 @@ public class GameObjectFactory {
 	public static states.State createChangeLevelColor(java.awt.Color color) {
 		return new states.StateChangeColor(color);
 	}
+	
+	public static states.State createSetPowerUp(states.State powerUp) {
+		return new states.StateSetPowerUp(powerUp);
+	}
 }

@@ -15,6 +15,7 @@ public class LevelManager implements Serializable {
 	private Level activeLevel;
 	private Level tempLevel;
 	private Color tempColor = Color.red;
+	private states.State powerUp;
 
 	public LevelManager() {
 		levelList = new ArrayList<Level>();
@@ -37,6 +38,14 @@ public class LevelManager implements Serializable {
 		return this.tempColor;
 	}
 	
+	public void setPowerUp(states.State powerup) {
+		this.powerUp = powerup;
+	}
+	
+	public states.State getPowerUp() {
+		return this.powerUp;
+	}
+	
 	public void saveTempLevel() {
 		levelList.add(tempLevel);
 		
@@ -57,6 +66,10 @@ public class LevelManager implements Serializable {
 		tempLevel = null;
 	}
 
+	public void loadLevels() {
+		loadLevels("fil.f");
+	}
+	
 	public void loadLevels(String filename)  {
 		
 		try {
