@@ -40,6 +40,7 @@ public class GameView extends JPanel implements Observer {
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		g.setFont(new Font("Trebuchet MS",10,12));
 		activeState.draw(g, drawObjects, userData);
 	}
 

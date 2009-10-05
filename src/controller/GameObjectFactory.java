@@ -47,4 +47,16 @@ public class GameObjectFactory {
 	public static states.State createChangeLevelState() {
 		return new states.StateChangeLevel();
 	}
+	
+	public static states.State createSaveLevelState() {
+		return new states.StateSaveLevel();
+	}
+	
+	public static states.State createLevelEditorState() {
+		return new states.StateLevelEditor();
+	}
+	
+	public static states.State createChangeLevelColor(java.awt.Color color) {
+		return new states.StateChangeColor(color);
+	}
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.awt.*;
 
 /*
  * class for using and drawing the level
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 public class Level implements Serializable {
 	private ArrayList<GameObject> level;
 	private GameObject brick;
+	private Color color;
 	
 	public Level() {
 		this.level = new ArrayList<GameObject>();
@@ -23,6 +25,14 @@ public class Level implements Serializable {
 
 	public ArrayList<GameObject> getLevel() {
 		return level;
+	}
+	
+	public void setColor(Color color) {
+		this.color = color;
+	}
+	
+	public Color getColor() {
+		return this.color;
 	}
 	
 	public void loadLevel(String filename){

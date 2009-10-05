@@ -1,21 +1,63 @@
 package controller;
 
+import java.io.File;
+import java.awt.*;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
 
 public class LevelManager implements Serializable {
 	private ArrayList<Level> levelList;
 	private Level activeLevel;
+	private Level tempLevel;
+	private Color tempColor = Color.red;
 
 	public LevelManager() {
 		levelList = new ArrayList<Level>();
 		activeLevel = null;
 	}
+	
+	public void setTempLevel(Level level) {
+		tempLevel = level;
+	}
+	
+	public Level getTempLevel() {
+		return tempLevel;
+	}
+	
+	public void setColor(Color color) {
+		this.tempColor = color;
+	}
+	
+	public Color getColor() {
+		return this.tempColor;
+	}
+	
+	public void saveTempLevel() {
+		levelList.add(tempLevel);
+		
 
-	public void loadLevels(String filename) {
+		try {
+			File f = new File("fil.f");
+			if(!f.exists()) {
+				f.createNewFile();
+			}
+			FileOutputStream fs = new FileOutputStream("fil.f");
+			ObjectOutputStream ob = new ObjectOutputStream(fs);
+			ob.writeObject(levelList);
+			ob.close();
+			fs.close();
+		} catch (IOException e) {
+			
+		}
+		tempLevel = null;
+	}
+
+	public void loadLevels(String filename)  {
 		
 		try {
 			FileInputStream fs = new FileInputStream(filename);
@@ -24,9 +66,9 @@ public class LevelManager implements Serializable {
 			os.close();
 			fs.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			
 		}
 	}	
 

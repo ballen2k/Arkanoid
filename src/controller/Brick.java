@@ -15,9 +15,10 @@ public class Brick extends GameObject implements Serializable {
 	final int width = 35;
 	final int height = 15;
 	private boolean hasPowerUp = false;
+	private Color color;
 	
 	public Brick(int x, int y) {
-		
+		this.color = Color.red;
 		this.x = x; 
 		this.y = y;
 		
@@ -26,6 +27,16 @@ public class Brick extends GameObject implements Serializable {
 		
 		
 	}
+	public Brick(int x, int y, Color color) {
+		this.x = x; 
+		this.y = y; 
+		this.color = color;
+		
+		bounds = new Rectangle();
+		bounds.setRect(x, y, width, height);
+	}
+
+	
 	public boolean hasPowerUp(){
 		
 		return hasPowerUp;
@@ -52,6 +63,8 @@ public class Brick extends GameObject implements Serializable {
 		this.x = x;
 		this.y = y;
 
+		bounds.setRect(x,y,width,height);	
+	
 	}
 
 	public void setHealth(int health) {
@@ -59,7 +72,7 @@ public class Brick extends GameObject implements Serializable {
 	}
 
 	public void draw(Graphics g) {
-		g.setColor(Color.red);
+		g.setColor(color);
 		g.fill3DRect(this.x, this.y, this.width, this.height,true);
 		
 

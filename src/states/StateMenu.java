@@ -35,12 +35,13 @@ public class StateMenu extends State {
 				GameObjectFactory.createMenuState(), "Settings", 180, 260);
 		menuList.add(itemSettings);
 		controller.MenuItem itemEditLevel = new controller.MenuItem(gameData,
-				GameObjectFactory.createExitState(), "Create level", 180,
-				340);
+				GameObjectFactory.createLevelEditorState(), "Create level", 180,
+				300);
 		menuList.add(itemEditLevel);
+		
 
 		controller.MenuItem itemExit = new controller.MenuItem(gameData,
-				GameObjectFactory.createExitState(), "Exit", 180, 300);
+				GameObjectFactory.createExitState(), "Exit", 180, 340);
 		menuList.add(itemExit);
 		
 		for (controller.GameObject mi : menuList) {
