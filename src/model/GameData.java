@@ -19,7 +19,6 @@ import controller.GameObjectFactory;
 import controller.LevelManager;
 import controller.Player;
 import controller.Wall;
-
 /*
  * Class containing all the data for the game. Including Levels, Power-ups, player(s) and other 
  * GameObjects i.e the ball.
@@ -28,8 +27,6 @@ public class GameData extends Observable implements ActionListener {
 
 	private LevelData levelData;
 	private BallData ballData;
-//	private PowerUpData powerUpData;
-//	private GunShotData gunShotdata;
 	private Timer timer;
 	private Random random = new Random();
 	private states.State activeState;
@@ -54,42 +51,24 @@ public class GameData extends Observable implements ActionListener {
 	public GameData() {
 		userData = new UserData(3, 0);
 
-//		setChanged();
-//		notifyObservers(userData);
-
 		timer = new Timer(35, this);
 		timer.start();
 		activeState = new states.StateMenu();
 
 		levelManager = new LevelManager();
 		levelManager.loadLevels("fil.f");
-/*
-		menuList = new ArrayList<controller.GameObject>();
-		controller.MenuItem itemStart = new controller.MenuItem(this,
-				GameObjectFactory.createPlayState(), "Play!", 180, 180);
-		menuList.add(itemStart);
-
-		controller.MenuItem itemChooseLevel = new controller.MenuItem(this,
-				GameObjectFactory.createPlayState(), "Choose level", 180, 220);
-		menuList.add(itemChooseLevel);
-		controller.MenuItem itemSettings = new controller.MenuItem(this,
-				GameObjectFactory.createMenuState(), "Settings", 180, 260);
-		menuList.add(itemSettings);
-		controller.MenuItem itemEditLevel = new controller.MenuItem(this,
-				GameObjectFactory.createExitState(), "Create level", 180, 340);
-		menuList.add(itemEditLevel);
-
-		controller.MenuItem itemExit = new controller.MenuItem(this,
-				GameObjectFactory.createExitState(), "Exit", 180, 300);
-		menuList.add(itemExit);
-		System.out.println("laddat");
-*/
 	}
-
+	
+	/**
+	 * @param active Set activeGame to active
+	 */
 	public void setActiveGame(boolean active) {
 		activeGame = active;
 	}
 	
+	/**
+	 * @return Returns true if there is a game active, else false
+	 */
 	public boolean getActiveGame() {
 		return activeGame;
 	}
