@@ -47,6 +47,8 @@ public class MenuItem extends GameObject {
 	@Override
 	public void draw(Graphics g) {
 		// TODO Auto-generated method stub
+		g.setColor(Color.black);
+		g.fillRect((int)bounds.getX(), (int)bounds.getY(), (int)bounds.getWidth(), (int)bounds.getHeight());
 		g.setColor(color);
 		g.drawRect((int)bounds.getX(), (int)bounds.getY(), (int)bounds.getWidth(), (int)bounds.getHeight());
 		g.drawString(text, (int)bounds.getX()+10, (int)bounds.getY()+23);

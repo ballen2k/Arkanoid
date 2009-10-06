@@ -141,7 +141,7 @@ public class StatePlay extends State {
 						ob.setHealth(1);
 						explosion = new controller.Explosion((int) ob
 								.getBounds().getCenterX(), (int) ob.getBounds()
-								.getCenterY());
+								.getCenterY(), ob.getColor());
 						it.remove();
 						userData.increasePoints(100);
 						
@@ -258,7 +258,7 @@ public class StatePlay extends State {
 						ob.setHealth(1);
 						explosion = new controller.Explosion((int) ob
 								.getBounds().getCenterX(), (int) ob.getBounds()
-								.getCenterY());
+								.getCenterY(), ob.getColor());
 						it.remove();
 						userData.increasePoints(100);
 

@@ -17,9 +17,10 @@ public class Explosion {
 		private double angle;
 		private int frameCount; 
 		private int start_x; 
+		private Color color;
 		
 		public Pixel(double angle, int gravity, int velocity_x, int velocity_y, int pos_x,
-				int pos_y, int lifetime) {
+				int pos_y, int lifetime, Color color) {
 			this.pos_x = pos_x;
 			this.pos_y = pos_y;
 			start_x = pos_x;
@@ -43,7 +44,7 @@ public class Explosion {
 
 		public void draw(Graphics g) {
 			if (lifetime >= 0) {
-				g.setColor(Color.red);
+				g.setColor(Color.pink);
 				g.fillRect(pos_x, pos_y, 2, 2);
 			}
 		}
@@ -55,7 +56,7 @@ public class Explosion {
 	
 	ArrayList<Pixel> pixelList;
 	
-	public Explosion(int start_x, int start_y) {
+	public Explosion(int start_x, int start_y, Color color) {
 		pixelList = new ArrayList<Pixel>();
 		Random random = new Random();
 		for(int i = 0; i < 100; i++) {
@@ -64,7 +65,7 @@ public class Explosion {
 					random.nextInt(2), 
 					random.nextInt(2)*(int)Math.pow(-1,random.nextInt(2)), 
 					random.nextInt(2),
-					start_x, start_y, 50));
+					start_x, start_y, 50, color));
 		}
 	}
 	

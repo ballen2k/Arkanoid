@@ -36,9 +36,20 @@ public class Brick extends GameObject implements Serializable {
 		bounds = new Rectangle();
 		bounds.setRect(x, y, width, height);
 		
-		image = new ImageIcon("img\\Purple.png");
+		if(this.color == Color.pink) {	
+			image = new ImageIcon("img\\Purple.png");
+		} else if(this.color == Color.green) {
+			image = new ImageIcon("img\\Green.png");
+		} else if(this.color == Color.orange) {
+			image = new ImageIcon("img\\Orange.png");
+		} else {
+			image = new ImageIcon("img\\Purple.png");
+		}
 	}
 
+	public Color getColor() {
+		return color;
+	}
 	
 	public boolean hasPowerUp(){
 		

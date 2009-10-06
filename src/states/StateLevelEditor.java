@@ -49,14 +49,19 @@ public class StateLevelEditor extends State {
 				controller.GameObjectFactory.createSaveLevelState(), "Save", 20, 400);
 		menuList.add(itemStart);
 		
-		controller.MenuItem itemColorRed = new controller.MenuItem(gameData, 
-				controller.GameObjectFactory.createChangeLevelColor(java.awt.Color.red), "Color: Red", 120, 400);
-		menuList.add(itemColorRed);
+		controller.MenuItem itemColorPurple = new controller.MenuItem(gameData, 
+				controller.GameObjectFactory.createChangeLevelColor(java.awt.Color.pink), "Color: Pink", 120, 400);
+		menuList.add(itemColorPurple);
 
-		controller.MenuItem itemColorBlue = new controller.MenuItem(gameData, 
-				controller.GameObjectFactory.createChangeLevelColor(java.awt.Color.blue), "Color: Blue", 220, 400);
-		menuList.add(itemColorBlue);
+		controller.MenuItem itemColorOrange = new controller.MenuItem(gameData, 
+				controller.GameObjectFactory.createChangeLevelColor(java.awt.Color.orange), "Color: Orange", 220, 400);
+		menuList.add(itemColorOrange);
 
+
+		controller.MenuItem itemColorGreen = new controller.MenuItem(gameData, 
+				controller.GameObjectFactory.createChangeLevelColor(java.awt.Color.green), "Color: Green", 320, 400);
+		menuList.add(itemColorGreen);
+		
 		controller.MenuItem itemPowerUpGun = new controller.MenuItem(gameData, 
 				controller.GameObjectFactory.createSetPowerUp(new StatePlayerPowerUpGun()), "Gun", 20, 360);
 		menuList.add(itemPowerUpGun);

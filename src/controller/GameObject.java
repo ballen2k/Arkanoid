@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.geom.Rectangle2D;
 
@@ -40,6 +41,7 @@ public abstract class GameObject {
 	public abstract int getWidth();
 	public abstract void setHealth(int i);
 	public abstract int getHealth();
+	public Color getColor() { return Color.gray; }
 	public abstract int getDirectionX();
 	public abstract int getDirectionY();
 	public abstract void changeDirectionY();
