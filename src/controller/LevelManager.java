@@ -9,7 +9,10 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.*;
-
+/**
+ * Handles all the levels. Loads levels from file and saves to file.
+ *
+ */
 public class LevelManager implements Serializable {
 	private ArrayList<Level> levelList;
 	private Level activeLevel;
@@ -22,30 +25,57 @@ public class LevelManager implements Serializable {
 		activeLevel = null;
 	}
 	
+	/** 
+	 * Set temporary level, used in leveleditor
+	 * @param level
+	 */
 	public void setTempLevel(Level level) {
 		tempLevel = level;
 	}
 	
+	/** 
+	 * Get temporary level, used in leveleditor
+	 * @return
+	 */
 	public Level getTempLevel() {
 		return tempLevel;
 	}
 	
+	/**
+	 * Set active color
+	 * @param color
+	 */
 	public void setColor(Color color) {
 		this.tempColor = color;
 	}
 	
+	/**
+	 * Get active color
+	 * @return color
+	 */
 	public Color getColor() {
 		return this.tempColor;
 	}
 	
+	/** 
+	 * Set temporary powerup, used by leveleditor
+	 * @param powerup
+	 */
 	public void setPowerUp(states.State powerup) {
 		this.powerUp = powerup;
 	}
 	
+	/**
+	 * 
+	 * @return powerup
+	 */
 	public states.State getPowerUp() {
 		return this.powerUp;
 	}
 	
+	/** 
+	 * Save temporary level to file
+	 */
 	public void saveTempLevel() {
 		levelList.add(tempLevel);
 		
@@ -66,10 +96,17 @@ public class LevelManager implements Serializable {
 		tempLevel = null;
 	}
 
+	/**
+	 * Loads levels from "fil.f"
+	 */
 	public void loadLevels() {
 		loadLevels("fil.f");
 	}
-	
+
+	/**
+	 * Loads levels from filename
+	 * @param filename
+	 */
 	public void loadLevels(String filename)  {
 		
 		try {
@@ -85,11 +122,18 @@ public class LevelManager implements Serializable {
 		}
 	}	
 
-	
+	/**
+	 * Add level to list
+	 * @param level
+	 */
 	public void addLevel(Level level) {
 		levelList.add(level);
 	}
 
+	/** 
+	 * Returns active level
+	 * @return level
+	 */
 	public Level getActiveLevel() {
 		if (activeLevel == null) {
 			if (!levelList.isEmpty()) {
@@ -103,6 +147,10 @@ public class LevelManager implements Serializable {
 		return activeLevel;
 	}
 
+	/**
+	 * Changes to next level
+	 * @return next level
+	 */
 	public Level nextLevel() {
 		if(!levelList.isEmpty()) {
 			activeLevel = levelList.get(0);

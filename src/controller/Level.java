@@ -7,8 +7,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.awt.*;
 
-/*
- * class for using and drawing the level
+/**
+ * Class for using and drawing the level
  */
 public class Level implements Serializable {
 	private ArrayList<GameObject> level;
@@ -23,18 +23,34 @@ public class Level implements Serializable {
 		this.level = objects;
 	}
 
+	/**
+	 * 
+	 * @return Returns the level list
+	 */
 	public ArrayList<GameObject> getLevel() {
 		return level;
 	}
 	
+	/** 
+	 * Set color to use when adding bricks
+	 * @param color Specifies which color to use
+	 */
 	public void setColor(Color color) {
 		this.color = color;
 	}
 	
+	/** 
+	 * 
+	 * @return Returns the active color
+	 */
 	public Color getColor() {
 		return this.color;
 	}
 	
+	/**
+	 * Load level from file
+	 * @param filename 
+	 */
 	public void loadLevel(String filename){
 		
 		try {
