@@ -15,6 +15,9 @@ public class StateLevelEditor extends State {
 	private int mousepos_x, mousepos_y;
 	private int clicked_x, clicked_y;
 	private boolean clicked = false;
+	private boolean rightClick = false;
+	private int rightClicked_x, rightClicked_y;
+	
 	private java.awt.Color activeColor;
 	private State activePowerUp = null;
 
@@ -33,6 +36,7 @@ public class StateLevelEditor extends State {
 	}
 
 	public void update(model.GameData gameData, model.UserData userData) {
+
 		if(gameData.getLevelManager().getTempLevel() != null) {
 			levelObjects = gameData.getLevelManager().getTempLevel().getLevel();
 			
@@ -76,6 +80,7 @@ public class StateLevelEditor extends State {
 					mi.pushed();
 				}
 			}
+			
 		} 
 
 		
@@ -89,7 +94,28 @@ public class StateLevelEditor extends State {
 			}
 		}
 		
+		if(rightClick) {
+			for(Iterator it = levelObjects.iterator(); it.hasNext(); ) {
+				controller.GameObject ob = (controller.GameObject)it.next();
+				if(ob.getBounds().contains(new Point(rightClicked_x, rightClicked_y))) {
+					it.remove();
+					
+				}
+			}
+		}
+		rightClick = false;
+
+		
 		if(clicked) {
+
+			for(Iterator it = levelObjects.iterator(); it.hasNext(); ) {
+				controller.GameObject ob = (controller.GameObject)it.next();
+				if(ob.getBounds().contains(new Point(clicked_x, clicked_y))) {
+					it.remove();
+					clicked = false;
+				}
+			}
+			
 			for(controller.GameObject o : hiddenObjects) {			
 				if(o.getBounds().contains(new Point(clicked_x, clicked_y))) {
 					controller.Brick tempBrick = new controller.Brick(o.getX(), o.getY(), activeColor);
@@ -100,7 +126,6 @@ public class StateLevelEditor extends State {
 				}
 			}
 		}
-		
 		
 		controller.Level level = new controller.Level(levelObjects);
 		gameData.getLevelManager().setTempLevel(level);
@@ -120,6 +145,12 @@ public class StateLevelEditor extends State {
 		this.clicked_x = pos_x;
 		this.clicked_y = pos_y;
 		this.clicked = true;
+	}
+
+	public void setRightClick(int pos_x, int pos_y) {
+		this.rightClicked_x = pos_x;
+		this.rightClicked_y = pos_y;
+		this.rightClick = true;
 	}
 
 	public ArrayList<controller.GameObject> getObjects() {

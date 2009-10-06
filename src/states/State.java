@@ -8,6 +8,7 @@ public class State {
 	public void update(model.GameData gameData, model.UserData userData) { }
 	public void setMouse(int pos_x, int pos_y) { }
 	public void setClick(int pos_x, int pos_y) { }
+	public void setRightClick(int pos_x, int pos_y)  { }
 	public ArrayList<controller.GameObject> getObjects() { 
 		return new ArrayList<controller.GameObject>();
 	}

@@ -38,6 +38,10 @@ public class GameData extends Observable implements ActionListener {
 	private boolean clicked = false;
 	private int clicked_x = 0;
 	private int clicked_y = 0;
+	
+	private boolean rightClick = false;
+	private int rightClicked_x = 0;
+	private int rightClicked_y = 0;
 
 	private int mousepos_x = 0;
 	private int mousepos_y = 0;
@@ -53,7 +57,7 @@ public class GameData extends Observable implements ActionListener {
 //		setChanged();
 //		notifyObservers(userData);
 
-		timer = new Timer(25, this);
+		timer = new Timer(35, this);
 		timer.start();
 		activeState = new states.StateMenu();
 
@@ -82,6 +86,13 @@ public class GameData extends Observable implements ActionListener {
 */
 	}
 
+	 public synchronized void pause() {
+	        
+				timer.stop();
+				timer.start();
+			
+	    }
+	
 	public void changeState(states.State state) {
 		activeState = state;
 		setChanged();
@@ -101,6 +112,12 @@ public class GameData extends Observable implements ActionListener {
 		clicked_x = x;
 		clicked_y = y;
 	}
+	
+	public void rightClick(int x, int y) {
+		rightClick = true; 
+		rightClicked_x = x; 
+		rightClicked_y = y;
+	}
 
 	public void mouseMove(int x, int y) {
 		mousepos_x = x;
@@ -116,6 +133,9 @@ public class GameData extends Observable implements ActionListener {
 		if (clicked) {
 			activeState.setClick(clicked_x, clicked_y);
 			clicked=false;
+		} else if(rightClick) {
+			activeState.setRightClick(clicked_x, clicked_y);
+			rightClick = false;
 		}
 		activeState.setMouse(mousepos_x, mousepos_y);
 		activeState.update(this, userData);

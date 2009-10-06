@@ -17,10 +17,11 @@ public class MouseInputController implements MouseListener, MouseMotionListener 
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		this.gameData.click(arg0.getX(), arg0.getY());
-		
-		
-		
+		if(arg0.getButton() == 1) {
+			this.gameData.click(arg0.getX(), arg0.getY());
+		} else {
+			this.gameData.rightClick(arg0.getX(), arg0.getY());
+		}
 		
 	}
 
