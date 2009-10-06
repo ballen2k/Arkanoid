@@ -1,6 +1,7 @@
 package controller;
 
 import java.awt.Color;
+import javax.swing.*;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
@@ -14,13 +15,14 @@ public class GunShot extends GameObject {
 	final private int PLAYER_WIDTH = 60;
 
 	private Rectangle2D bounds;
+	
+	private ImageIcon image; 
 
 	public GunShot(int x, int y) {
 		bounds = new Rectangle();
 		bounds.setRect(x, y, WIDTH, HEIGHT);
 		
-		
-
+		image = new ImageIcon("img\\Projectile.png");
 	}
 
 	public Rectangle2D getBounds() {
@@ -32,7 +34,7 @@ public class GunShot extends GameObject {
 		g.setColor(Color.yellow);
 		g.fill3DRect((int) bounds.getX(), (int) bounds.getY(), WIDTH, HEIGHT,true);
 		
-		
+		g.drawImage(image.getImage(), (int)this.bounds.getX(), (int)this.bounds.getY(), null);
 	}
 
 	@Override

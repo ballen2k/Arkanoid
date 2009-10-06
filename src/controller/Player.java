@@ -40,19 +40,7 @@ public class Player extends GameObject {
 	public void draw(Graphics g) {
 		
 		g.setColor(Color.green);
-/*
-		if (activeState instanceof states.StatePlayerPowerUpBigger) {
-			g.fillRect(x, y, widthBigger, height);
-		} else if (activeState instanceof states.StatePlayerPowerUpSmaller) {
-			g.fillRect(x, y, widthSmaller, height);
-		} else if (activeState instanceof states.StatePlayerPowerUpGun){
-			g.fillRect(x, y, width, height);
-			g.setColor(Color.black);
-			g.fillRect(x+5, y, 3, 5);
-			g.fillRect(x+width-6, y, 3, 5);
-		}else {
-			g.fillRect(x, y, width, height);
-		}*/
+
 		g.drawImage(image.getImage(), (int)this.bounds.getX(), (int)this.bounds.getY(), null);
 	}
 
@@ -75,10 +63,10 @@ public class Player extends GameObject {
 		this.activeState = activeState;
 		if(activeState instanceof states.StatePlayerPowerUpBigger) {
 			image = new ImageIcon("img\\Hitter80x15.png");
-			System.out.println("Sätter stor");
 		} else if(activeState instanceof states.StatePlayerPowerUpSmaller) {
 			image = new ImageIcon("img\\Hitter40x15.png");
-			System.out.println("Sätter liten");
+		} else if(activeState instanceof states.StatePlayerPowerUpGun) {
+			image = new ImageIcon("img\\Hitter_Wep.png");
 		} else {
 			image = new ImageIcon("img\\Hitter60x15.png");
 		}	

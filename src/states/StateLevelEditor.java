@@ -24,9 +24,9 @@ public class StateLevelEditor extends State {
 	public StateLevelEditor() {
 		levelObjects = new ArrayList<controller.GameObject>();
 
-		controller.Wall left = new controller.Wall(-10, 0, 20, 480);
-		controller.Wall right = new controller.Wall(475, 0, 10, 480);
-		controller.Wall up = new controller.Wall(0, -10, 480, 20);
+		controller.Wall left = new controller.Wall(-20, 0, 20, 480);
+		controller.Wall right = new controller.Wall(485, 0, 10, 480);
+		controller.Wall up = new controller.Wall(0, -20, 480, 20);
 		
 		levelObjects.add(left);
 		levelObjects.add(right);

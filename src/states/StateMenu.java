@@ -24,24 +24,17 @@ public class StateMenu extends State {
 	public void update(model.GameData gameData, model.UserData userData) { 
 		menuList = new ArrayList<controller.GameObject>();
 		controller.MenuItem itemStart = new controller.MenuItem(gameData,
-				controller.GameObjectFactory.createPlayState(), "Play!", 180, 180);
+				controller.GameObjectFactory.createPlayState(), "Play!", 20, 350);
 		menuList.add(itemStart);
 
-		controller.MenuItem itemChooseLevel = new controller.MenuItem(gameData,
-				GameObjectFactory.createPlayState(), "Choose level", 180,
-				220);
-		menuList.add(itemChooseLevel);
-		controller.MenuItem itemSettings = new controller.MenuItem(gameData,
-				GameObjectFactory.createMenuState(), "Settings", 180, 260);
-		menuList.add(itemSettings);
 		controller.MenuItem itemEditLevel = new controller.MenuItem(gameData,
-				GameObjectFactory.createLevelEditorState(), "Create level", 180,
-				300);
+				GameObjectFactory.createLevelEditorState(), "Create level", 120,
+				350);
 		menuList.add(itemEditLevel);
 		
 
 		controller.MenuItem itemExit = new controller.MenuItem(gameData,
-				GameObjectFactory.createExitState(), "Exit", 180, 340);
+				GameObjectFactory.createExitState(), "Exit", 220, 350);
 		menuList.add(itemExit);
 		
 		for (controller.GameObject mi : menuList) {

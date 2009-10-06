@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
-
+import javax.swing.*;
 public class Ball extends GameObject {
 	Rectangle2D outerBounds;
 	private int x;
@@ -14,7 +14,7 @@ public class Ball extends GameObject {
 	private final int MAX_SLOPE = 8;
 	private boolean isMoving = false;
 
-
+	private ImageIcon image; 
 
 	private int directionX;
 	private int directionY;
@@ -28,6 +28,8 @@ public class Ball extends GameObject {
 		this.slope = 1;
 
 		outerBounds = new Rectangle();
+		
+		image = new ImageIcon("img\\Ball.png");
 	}
 
 	public boolean isMoving() {
@@ -83,6 +85,7 @@ public class Ball extends GameObject {
 	public void draw(Graphics g) {
 		g.setColor(Color.cyan);
 		g.fillOval(x, y, BALL_WIDTH, BALL_HEIGHT);
+		g.drawImage(image.getImage(), x, y, null);
 
 	}
 
