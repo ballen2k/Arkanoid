@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
 import states.State;
-
+import javax.swing.*;
 public class Player extends GameObject {
 
 	private int health = 3;
@@ -21,12 +21,15 @@ public class Player extends GameObject {
 
 	final int widthBigger = 80;
 	final int widthSmaller = 40;
-
+	
+	private ImageIcon image; 
+	
 	public Player() {
 		activeState = new states.StatePlayerNormal();
 		bounds = new Rectangle();
 		bounds.setRect(x, y, width, height);
-
+		
+		image = new ImageIcon("img\\Hitter60x15.png");
 	}
 
 	public Rectangle2D getBounds() {
@@ -37,7 +40,7 @@ public class Player extends GameObject {
 	public void draw(Graphics g) {
 		
 		g.setColor(Color.green);
-
+/*
 		if (activeState instanceof states.StatePlayerPowerUpBigger) {
 			g.fillRect(x, y, widthBigger, height);
 		} else if (activeState instanceof states.StatePlayerPowerUpSmaller) {
@@ -49,8 +52,8 @@ public class Player extends GameObject {
 			g.fillRect(x+width-6, y, 3, 5);
 		}else {
 			g.fillRect(x, y, width, height);
-		}
-
+		}*/
+		g.drawImage(image.getImage(), (int)this.bounds.getX(), (int)this.bounds.getY(), null);
 	}
 
 	public boolean intersect(GameObject object) {
@@ -70,6 +73,15 @@ public class Player extends GameObject {
 
 	public void setActiveState(states.State activeState) {
 		this.activeState = activeState;
+		if(activeState instanceof states.StatePlayerPowerUpBigger) {
+			image = new ImageIcon("img\\Hitter80x15.png");
+			System.out.println("Sätter stor");
+		} else if(activeState instanceof states.StatePlayerPowerUpSmaller) {
+			image = new ImageIcon("img\\Hitter40x15.png");
+			System.out.println("Sätter liten");
+		} else {
+			image = new ImageIcon("img\\Hitter60x15.png");
+		}	
 	}
 
 	public void setCoordinates(int x, int y) {

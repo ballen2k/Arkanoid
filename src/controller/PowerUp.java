@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
-
+import javax.swing.*;
 public class PowerUp extends GameObject {
 	private int x;
 	private int y;
@@ -14,11 +14,23 @@ public class PowerUp extends GameObject {
 
 	private Rectangle2D bounds;
 
+	private ImageIcon image; 
 	public PowerUp(states.State powerUp, int x, int y) {
 		bounds = new Rectangle();
 		bounds.setRect(x, y, width, height);
 		this.powerUp = powerUp;
 		
+		if(powerUp instanceof states.StatePlayerPowerUpSplitBall) {
+			image = new ImageIcon("img\\2.png");
+		} else if(powerUp instanceof states.StatePlayerPowerUpExtraLife) {
+			image = new ImageIcon("img\\E.png");
+		} else  if(powerUp instanceof states.StatePlayerPowerUpBigger) {
+			image = new ImageIcon("img\\B.png");
+		} else if(powerUp instanceof states.StatePlayerPowerUpSmaller) {
+			image = new ImageIcon("img\\S.png");
+		} else if(powerUp instanceof states.StatePlayerPowerUpGun) {
+			image = new ImageIcon("img\\G.png");
+		} 
 
 	}
 
@@ -30,6 +42,7 @@ public class PowerUp extends GameObject {
 	public void draw(Graphics g) {
 		g.setColor(this.powerUp.getColor());
 		g.fillRect((int) bounds.getX(), (int) bounds.getY(), width, height);
+		g.drawImage(image.getImage(), (int)this.bounds.getX(), (int)this.bounds.getY(), null);
 
 	}
 
@@ -41,7 +54,7 @@ public class PowerUp extends GameObject {
 	
 	public states.State getPowerUp(){
 		return powerUp;
-		};
+	}
 
 	public int getX() {
 		return x;

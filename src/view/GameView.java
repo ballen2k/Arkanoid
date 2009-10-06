@@ -1,6 +1,7 @@
 package view;
 
 import java.awt.*;
+import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
@@ -23,7 +24,8 @@ public class GameView extends JPanel implements Observer {
 	private ArrayList<controller.GameObject> drawObjects;
 	
 	private model.UserData userData;
-	
+
+	private ImageIcon image; 
 	/*
 	 * Here's where all the action is.
 	 */
@@ -36,10 +38,13 @@ public class GameView extends JPanel implements Observer {
 
 		this.addMouseListener(new MouseInputController(gameData));
 		this.addMouseMotionListener(new MouseInputController(gameData));
+		
+		image = new ImageIcon("img\\Backdrop.png");
 	}
 
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
+		g.drawImage(image.getImage(), 0, 0, null);
 		g.setFont(new Font("Trebuchet MS",10,12));
 		activeState.draw(g, drawObjects, userData);
 	}

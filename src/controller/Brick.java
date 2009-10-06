@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
-
+import javax.swing.*;
 public class Brick extends GameObject implements Serializable {
 	
 	private Rectangle2D bounds;
@@ -16,6 +16,7 @@ public class Brick extends GameObject implements Serializable {
 	final int height = 15;
 	private boolean hasPowerUp = false;
 	private Color color;
+	private ImageIcon image; 
 	
 	public Brick(int x, int y) {
 		this.color = Color.red;
@@ -34,6 +35,8 @@ public class Brick extends GameObject implements Serializable {
 		
 		bounds = new Rectangle();
 		bounds.setRect(x, y, width, height);
+		
+		image = new ImageIcon("img\\Purple.png");
 	}
 
 	
@@ -75,7 +78,7 @@ public class Brick extends GameObject implements Serializable {
 		g.setColor(color);
 		g.fill3DRect(this.x, this.y, this.width, this.height,true);
 		
-
+		g.drawImage(image.getImage(), (int)this.bounds.getX(), (int)this.bounds.getY(), null);
 	}
 
 	public int getX() {
