@@ -86,12 +86,13 @@ public class GameData extends Observable implements ActionListener {
 */
 	}
 
-	 public synchronized void pause() {
-	        
-				timer.stop();
-				timer.start();
-			
-	    }
+	public void setActiveGame(boolean active) {
+		activeGame = active;
+	}
+	
+	public boolean getActiveGame() {
+		return activeGame;
+	}
 	
 	public void changeState(states.State state) {
 		activeState = state;
@@ -136,6 +137,9 @@ public class GameData extends Observable implements ActionListener {
 		} else if(rightClick) {
 			activeState.setRightClick(clicked_x, clicked_y);
 			rightClick = false;
+		}
+		if(!activeGame) {
+			userData = new UserData(3, 0);
 		}
 		activeState.setMouse(mousepos_x, mousepos_y);
 		activeState.update(this, userData);

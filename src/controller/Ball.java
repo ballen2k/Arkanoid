@@ -12,10 +12,9 @@ public class Ball extends GameObject {
 	public static final int BALL_WIDTH = 10;
 	public static final int BALL_HEIGHT = 10;
 	private final int MAX_SLOPE = 8;
+	private boolean isMoving = false;
 
-	public int getMAX_SLOPE() {
-		return MAX_SLOPE;
-	}
+
 
 	private int directionX;
 	private int directionY;
@@ -31,6 +30,19 @@ public class Ball extends GameObject {
 		outerBounds = new Rectangle();
 	}
 
+	public boolean isMoving() {
+		return isMoving; 
+	}
+	
+	public void setMoving() {
+		isMoving = true;
+	}
+
+
+	public int getMAX_SLOPE() {
+		return MAX_SLOPE;
+	}
+	
 	public Rectangle2D getBounds() {
 		return outerBounds;
 	}

@@ -27,13 +27,28 @@ public class BallData {
 		return ballList;
 	}
 	
+	
+	public void activateBall() {
+		for(controller.GameObject ball : ballList) {
+			ball.setMoving();
+		}
+	}
+
+	
 	public void update() {
 		for (Iterator<controller.GameObject> it = ballList.iterator(); it.hasNext();) {
 			controller.GameObject ball = it.next();
 
-			ball.setCoordinates(ball.getX()
+
+			if(ball.isMoving()) {
+				ball.setCoordinates(ball.getX()
 					+ (ball.getSlope() * ball.getDirectionX()), ball.getY()
 					+ (5 * ball.getDirectionY()));
+			} else {
+				ball.setCoordinates((int)gameData.getPlayer().getBounds().getX()+20, 
+				(int)gameData.getPlayer().getBounds().getY()-20);
+			}
+
 			/*
 			// Right
 			if (ball.getX() >= 480) {

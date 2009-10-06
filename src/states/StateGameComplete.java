@@ -13,7 +13,8 @@ public class StateGameComplete extends State {
 	private boolean clicked = false;
 
 	public void update(model.GameData gameData, model.UserData userData) {
-		gameData.getLevelManager().loadLevels();
+		//gameData.getLevelManager().loadLevels();
+		gameData.setActiveGame(false);
 
 		menuList = new ArrayList<controller.GameObject>();
 		controller.MenuItem itemStart = new controller.MenuItem(gameData,

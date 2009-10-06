@@ -62,4 +62,8 @@ public abstract class GameObject {
 	public abstract Rectangle2D getBounds();
 
 	public boolean isRemovable() { return false; }
+	public void setMoving() {		
+	}
+	public boolean isMoving() { return true; }
+
 }

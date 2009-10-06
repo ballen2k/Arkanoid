@@ -65,6 +65,15 @@ public class StatePlay extends State {
 			powerUpData = new model.PowerUpData();
 			gunShotData = new model.GunShotData();
 		}
+		
+
+		if (!gameData.getActiveGame()) {
+			gameData.setActiveGame(true);
+			levelData = new model.LevelData();
+			gameData.getLevelManager().loadLevels();
+			userData = new model.UserData(3, 0);
+		}
+
 
 		controller.Player player = userData.getPlayer();
 		ArrayList<controller.GameObject> ballList = ballData.getBallList();
@@ -88,7 +97,7 @@ public class StatePlay extends State {
 		}
 		if (complete) {
 			gameData.changeState(controller.GameObjectFactory
-					.createStateLevelComplete());
+					.createChangeLevelState());
 			return;
 		}
 
@@ -201,6 +210,12 @@ public class StatePlay extends State {
 			}
 			
 		}
+		
+
+		if(clicked) {
+			ballData.activateBall();
+		}
+
 		/*
 		 * Move the powerUps
 		 */
