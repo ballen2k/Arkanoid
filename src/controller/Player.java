@@ -19,7 +19,7 @@ public class Player extends GameObject {
 	final int width = 60;
 	final int height = 15;
 
-	final int widthBigger = 100;
+	final int widthBigger = 80;
 	final int widthSmaller = 40;
 
 	public Player() {

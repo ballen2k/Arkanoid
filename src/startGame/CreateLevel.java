@@ -18,14 +18,15 @@ private static GameObject brick;
 		ArrayList<controller.GameObject> level = new ArrayList<controller.GameObject>();
 		ArrayList<controller.GameObject> level2 = new ArrayList<controller.GameObject>();
 		brick = new Brick(180,180);
-		brick.setPowerUp(new states.StatePlayerPowerUpBigger());
+		brick.setPowerUp(new states.StatePlayerPowerUpGun());
 		level2.add(brick);
 		level.add(brick);
 
 		for (int j = 1; j < 6; j++) {
 			for (int i = 0; i < 14; i++) {
 				brick = new controller.Brick(i * 35, 15*j);
-				brick.setPowerUp(new states.StatePlayerPowerUpGun());
+				brick.setPowerUp(new states.StatePlayerPowerUpSplitBall());
+				brick.setHealth(1);
 				level.add(brick);
 			}
 		}

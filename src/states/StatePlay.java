@@ -152,7 +152,7 @@ public class StatePlay extends State {
 					
 				}else{
 				b.changeDirectionY();
-				b.setSlope((int)((double)Math.abs((b.getX()+b.getWidth()/2)-(player.getX()+player.getWidth()/2))/(player.getWidth()/2)*b.getMAX_SLOPE()));
+				b.setSlope((int)((double)Math.abs((b.getX()+b.getWidth()/2)-(player.getX()+player.getWidth()/2))/(player.getWidth()/2)*b.getMAX_SLOPE())+1);
 				}
 				}
 		}
@@ -179,16 +179,32 @@ public class StatePlay extends State {
 				.getPowerUpList().iterator(); itPower.hasNext();) {
 			controller.GameObject pu = itPower.next();
 			if (pu.intersect(userData.getPlayer())) {
+				if (pu.getPowerUp() instanceof states.StatePlayerPowerUpExtraLife){
+					userData.increaseNumberOfLifes();
+				}else if (pu.getPowerUp() instanceof states.StatePlayerPowerUpSplitBall){
+						ArrayList<GameObject> temp = new ArrayList<GameObject>();
+						
+					for(GameObject ball :ballData.getBallList()){
+						temp.add(controller.GameObjectFactory.createBall(ball.getX(), ball.getY(), ball.getDirectionX()*-1, ball.getDirectionY()));
+					}
+					for (GameObject ball : temp){
+						ballData.addBall(ball.getX(), ball.getY(), ball.getDirectionX(), ball.getDirectionY());
+					}
+					
+				}else{
+				
+				
 				player.setActiveState(pu.getPowerUp());
+				}
 				itPower.remove();
 				userData.increasePoints(100);
 			}
-
+			
 		}
 		/*
 		 * Move the powerUps
 		 */
-		powerUpData.update();
+		powerUpData.update(userData);
 
 		/*
 		 * Adds gunshots

@@ -28,7 +28,7 @@ public class PowerUp extends GameObject {
 
 
 	public void draw(Graphics g) {
-		g.setColor(Color.gray);
+		g.setColor(this.powerUp.getColor());
 		g.fillRect((int) bounds.getX(), (int) bounds.getY(), width, height);
 
 	}

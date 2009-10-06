@@ -1,6 +1,7 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import controller.GameObject;
 import controller.GameObjectFactory;
@@ -27,11 +28,17 @@ public class GunShotData {
 		// TODO for every tick from timer, move accordingly.
 		// *
 
-		for (GameObject pu : gunShotList) {
+		
+		for (Iterator<controller.GameObject> it = gunShotList.iterator();it.hasNext();){
+			controller.GameObject pu = it.next();
 			pu.setCoordinates((int) pu.getBounds().getX(), (int) pu.getBounds()
 					.getY() - 4);
-
+			if (pu.getBounds().getY()<0){
+			it.remove();
+			}
+			
 		}
+		
 
 	}
 

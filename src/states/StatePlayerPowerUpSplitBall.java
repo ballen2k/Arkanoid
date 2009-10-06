@@ -3,18 +3,17 @@ package states;
 import java.awt.Color;
 import java.io.Serializable;
 
-public class StatePlayerPowerUpBigger extends State implements Serializable{
+public class StatePlayerPowerUpSplitBall extends State implements Serializable{
+
 	private Color color;
 	
-	
-
-	public StatePlayerPowerUpBigger(){
-		this.color = Color.green;
+	public StatePlayerPowerUpSplitBall(){
+		this.color =Color.yellow;
 	}
-	
-	
+
 	public Color getColor() {
 		return color;
 	}
+	
 	
 }
