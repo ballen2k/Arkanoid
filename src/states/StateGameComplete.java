@@ -13,7 +13,6 @@ public class StateGameComplete extends State {
 	private boolean clicked = false;
 
 	public void update(model.GameData gameData, model.UserData userData) {
-		//gameData.getLevelManager().loadLevels();
 		gameData.setActiveGame(false);
 
 		menuList = new ArrayList<controller.GameObject>();
@@ -59,7 +58,7 @@ public class StateGameComplete extends State {
 	public void draw(Graphics g, ArrayList<controller.GameObject> objectList,
 			model.UserData userData) {
 		g.setColor(Color.orange);
-		g.drawString("Game Completed =======================|=|>", 180, 180);
+		g.drawString("Game Completed", 180, 180);
 
 		for (controller.GameObject o : objectList) {
 			o.draw(g);
