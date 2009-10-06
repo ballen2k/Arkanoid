@@ -4,17 +4,25 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
-import javax.swing.*;
+
+import javax.swing.ImageIcon;
+/**
+ * The ball class. This is the object thats moving around and
+ *         destroying the evil bricks
+ * @author Jeremia 
+ * 
+ */
 public class Ball extends GameObject {
 	Rectangle2D outerBounds;
+	Rectangle2D bounds;
 	private int x;
 	private int y;
 	public static final int BALL_WIDTH = 10;
 	public static final int BALL_HEIGHT = 10;
 	private final int MAX_SLOPE = 8;
 	private boolean isMoving = false;
-
 	private ImageIcon image; 
+
 
 	private int directionX;
 	private int directionY;
@@ -26,10 +34,8 @@ public class Ball extends GameObject {
 		this.directionX = directionX;
 		this.directionY = directionY;
 		this.slope = 1;
-
-		outerBounds = new Rectangle();
-		
 		image = new ImageIcon("img\\Ball.png");
+		outerBounds = new Rectangle();
 	}
 
 	public boolean isMoving() {
@@ -83,13 +89,13 @@ public class Ball extends GameObject {
 
 	@Override
 	public void draw(Graphics g) {
-		g.setColor(Color.cyan);
-		g.fillOval(x, y, BALL_WIDTH, BALL_HEIGHT);
 		g.drawImage(image.getImage(), x, y, null);
 
 	}
 
 	public boolean intersect(GameObject object) {
+		bounds = new Rectangle();
+		bounds.setRect(x,y,10,10);
 		outerBounds.setRect(x + slope * getDirectionX(), y
 				+ (5 * getDirectionY() + 3), 10, 10);
 		Rectangle2D obBounds = object.getBounds();
@@ -99,8 +105,10 @@ public class Ball extends GameObject {
 
 	public boolean intersectLeftRight(GameObject object) {
 		Rectangle2D obBounds = object.getBounds();
+		//Creates temporary Rectangle2d for the top/bottom collission check 
 		Rectangle2D leftZone = new Rectangle();
 		Rectangle2D rightZone = new Rectangle();
+		
 		leftZone.setRect(obBounds.getX() - 9, obBounds.getY() + 1, 9, obBounds
 				.getHeight() - 2);
 		rightZone.setRect(obBounds.getX() + obBounds.getWidth(), obBounds
@@ -108,12 +116,13 @@ public class Ball extends GameObject {
 
 		return (outerBounds.intersects(leftZone) || outerBounds
 				.intersects(rightZone)
-				&& !this.intersectTopBottom(object));
+				);
 
 	}
 
 	public boolean intersectTopBottom(GameObject object) {
 		Rectangle2D obBounds = object.getBounds();
+		//Creates temporary Rectangle2d for the top/bottom collission check 
 		Rectangle2D topZone = new Rectangle();
 		Rectangle2D bottomZone = new Rectangle();
 		topZone.setRect(obBounds.getX(), obBounds.getY() - 9, obBounds
@@ -128,41 +137,22 @@ public class Ball extends GameObject {
 
 	public boolean intersectLeft(GameObject object) {
 		Rectangle2D obBounds = object.getBounds();
-		double whichHeight;
-		// the check for right or left collision needs a thin bounds rect
-		// when checking bricks,
-		// or else it will collide with the top/bottom collission.
-		if (object instanceof controller.Brick) {
-			whichHeight = 1;
-		} else {
-			whichHeight = obBounds.getHeight() - 5;
-		}
 		// Create a temp rectangle to the left of the object
 		Rectangle2D leftZone = new Rectangle();
-		leftZone.setRect(obBounds.getX(), obBounds.getY() + 1, 1, obBounds
-				.getHeight() - 2);
+		leftZone.setRect(obBounds.getX() - 10, obBounds.getY(), 10, obBounds
+				.getHeight());
 
-		return outerBounds.intersects(leftZone);
+		return (bounds.intersects(leftZone));
 	}
 
 	public boolean intersectRight(GameObject object) {
 		Rectangle2D obBounds = object.getBounds();
-		// the check for right or left collision needs a thin bounds rect
-		// when checking bricks,
-		// or else it will collide with the top/bottom collission.
-		double whichHeight;
-		if (object instanceof controller.Brick) {
-			whichHeight = 1;
-		} else {
-			whichHeight = obBounds.getHeight() - 5;
-		}
-
 		// Create a temp rectangle to the right of the object
 		Rectangle2D rightZone = new Rectangle();
 		rightZone.setRect(obBounds.getX() + obBounds.getWidth(), obBounds
-				.getY() + 1, 1, obBounds.getHeight() - 2);
+				.getY(), 10, obBounds.getHeight());
 
-		return outerBounds.intersects(rightZone);
+		return (bounds.intersects(rightZone));
 	}
 
 	@Override
@@ -188,27 +178,4 @@ public class Ball extends GameObject {
 		return BALL_WIDTH;
 	}
 
-	@Override
-	public void hit(GameObject g) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean isDead() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setHealth(int i) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public int getHealth() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
 }

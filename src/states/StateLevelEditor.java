@@ -70,6 +70,9 @@ public class StateLevelEditor extends State {
 				controller.GameObjectFactory.createSetPowerUp(new StatePlayerPowerUpBigger()), "Bigger", 120, 360);
 		menuList.add(itemPowerUpBigger);
 		
+		controller.MenuItem itemPowerUpNormal = new controller.MenuItem(gameData, 
+				controller.GameObjectFactory.createSetPowerUp(null), "No PowerUp", 120, 320);
+		menuList.add(itemPowerUpNormal);
 
 		controller.MenuItem itemPowerUpSplit = new controller.MenuItem(gameData, 
 				controller.GameObjectFactory.createSetPowerUp(new StatePlayerPowerUpSplitBall()), "Splitball", 220, 360);

@@ -5,7 +5,12 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
 import model.GameData;
-
+/**
+ * Class for handling the mouse input.
+ * 
+ * @author Jeremia
+ * 
+ */
 public class MouseInputController implements MouseListener, MouseMotionListener {
 	private Player player;
 	private GameData gameData;

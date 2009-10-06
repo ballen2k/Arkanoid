@@ -1,6 +1,12 @@
 package controller;
 
 import java.awt.Color;
+/**
+ * Class player. The user controller actor in the game.
+ * 
+ * @author Jeremia
+ * 
+ */
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
@@ -38,9 +44,6 @@ public class Player extends GameObject {
 	}
 
 	public void draw(Graphics g) {
-		
-		g.setColor(Color.green);
-
 		g.drawImage(image.getImage(), (int)this.bounds.getX(), (int)this.bounds.getY(), null);
 	}
 
@@ -94,7 +97,7 @@ public class Player extends GameObject {
 	}
 
 	public int getWidth() {
-
+		//returns width depending on which PowerUp the player has.
 		if (activeState instanceof states.StatePlayerPowerUpBigger) {
 			return widthBigger;
 		} else if (activeState instanceof states.StatePlayerPowerUpSmaller) {

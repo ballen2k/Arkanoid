@@ -4,6 +4,8 @@ import java.awt.*;
 import java.util.*;
 import java.math.*;
 import java.lang.Math;
+
+import controller.AePlayWave;
 import controller.GameObject;
 
 public class StatePlay extends State {
@@ -33,13 +35,13 @@ public class StatePlay extends State {
 			go.draw(g);
 		}
 
-		g.setColor(Color.black);
-		g.fillRect(0, 445, 1000, 200);
-		g.setColor(Color.green);
-		g.drawLine(0, 445, 500, 445);
+		
+		Font font = new Font("Serif", Font.BOLD, 12);
+		g.setFont(font);
+		g.setColor(Color.orange);
 		g.drawString("Lives: " + Integer.toString(userData.getNumberOfLifes()),
-				50, 460);
-		g.drawString("Points: " + Integer.toString(userData.getPoints()), 150,
+				0, 460);
+		g.drawString("Points: " + Integer.toString(userData.getPoints()), 410,
 				460);
 
 		userData.getPlayer().draw(g);
@@ -125,7 +127,7 @@ public class StatePlay extends State {
 				controller.GameObject ob = it.next();
 				if (b.intersect(ob)) {
 					ob.hit(b);
-					if(b.intersectLeftRight(ob)){
+					if(b.intersectLeft(ob)|| b.intersectRight(ob)){
 						b.changeDirectionX();
 						
 					}else{
@@ -134,17 +136,20 @@ public class StatePlay extends State {
 					}
 					
 					if (ob.isDead()) {
+						new AePlayWave("img\\exp.wav").start();
 						if (ob.hasPowerUp()) {
 							powerUpData.addPowerUp(ob.getPowerUp(), ob.getX(),
 									ob.getY());
 						}
-						ob.setHealth(1);
+						//ob.setHealth(1);
 						explosion = new controller.Explosion((int) ob
 								.getBounds().getCenterX(), (int) ob.getBounds()
 								.getCenterY(), ob.getColor());
 						it.remove();
 						userData.increasePoints(100);
 						
+					}else{
+						new AePlayWave("img\\bounce.wav").start();
 					}
 					break;
 				}
@@ -152,7 +157,7 @@ public class StatePlay extends State {
 			}
 
 			if (b.intersect(player)) {
-				
+				new AePlayWave("img\\bounce.wav").start();
 				
 				//special case when the balls hit the player far to the left or right. 
 				if (b.getX()+b.getWidth()/2<player.getX() || b.getX()+b.getWidth()/2 > player.getX()+player.getWidth()){
@@ -227,6 +232,7 @@ public class StatePlay extends State {
 		if (clicked) {
 
 			if (player.getPowerUp() instanceof states.StatePlayerPowerUpGun) {
+				new AePlayWave("img\\test.wav").start();
 
 				this.gunShotData.addGunShot(player.getX(), player.getY());
 			}
@@ -249,8 +255,10 @@ public class StatePlay extends State {
 				controller.GameObject ob = it.next();
 				if (g.intersect(ob)) {
 					ob.hit(g);
+					
 					itG.remove();
 					if (ob.isDead()) {
+						new AePlayWave("img\\exp.wav").start();
 						if (ob.hasPowerUp()) {
 							powerUpData.addPowerUp(ob.getPowerUp(), ob.getX(),
 									ob.getY());
@@ -262,6 +270,8 @@ public class StatePlay extends State {
 						it.remove();
 						userData.increasePoints(100);
 
+					}else{
+						new AePlayWave("img\\hit.wav").start();
 					}
 					return;
 				}

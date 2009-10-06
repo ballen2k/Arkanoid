@@ -5,7 +5,13 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Random;
-
+/**
+ * 
+ * @author Jeremia
+ * 
+ * A nifty explosion class. Epic gfx.
+ *
+ */
 public class Explosion {
 	class Pixel {
 		private int pos_x, pos_y;
@@ -30,7 +36,6 @@ public class Explosion {
 			
 			this.random = new Random();
 			this.velocity_x = (random.nextInt(6))*Math.pow(-1, random.nextInt(2));
-			//System.out.println(velocity_x);
 			this.velocity_y = (random.nextInt(3)+1)*Math.pow(-1, random.nextInt(2)); 
 			frameCount = 0;
 		}

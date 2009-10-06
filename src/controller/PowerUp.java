@@ -1,6 +1,12 @@
 package controller;
 
 import java.awt.Color;
+/**
+ * Class Powerup. This is the object displayd when an powerup is dropped
+ * Contains wich powerup the player will get.
+ * @author Jeremia
+ *
+ */
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
@@ -18,7 +24,10 @@ public class PowerUp extends GameObject {
 	public PowerUp(states.State powerUp, int x, int y) {
 		bounds = new Rectangle();
 		bounds.setRect(x, y, width, height);
-		this.powerUp = powerUp;
+		if (!(powerUp instanceof states.StatePlayerNormal)){
+			this.powerUp = powerUp;
+		}
+		
 		
 		if(powerUp instanceof states.StatePlayerPowerUpSplitBall) {
 			image = new ImageIcon("img\\2.png");
@@ -41,9 +50,9 @@ public class PowerUp extends GameObject {
 
 	public void draw(Graphics g) {
 		g.setColor(this.powerUp.getColor());
-		g.fillRect((int) bounds.getX(), (int) bounds.getY(), width, height);
+		//g.fillRect((int) bounds.getX(), (int) bounds.getY(), width, height);
 		g.drawImage(image.getImage(), (int)this.bounds.getX(), (int)this.bounds.getY(), null);
-
+		
 	}
 
 	@Override
