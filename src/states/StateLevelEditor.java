@@ -58,12 +58,26 @@ public class StateLevelEditor extends State {
 		menuList.add(itemColorBlue);
 
 		controller.MenuItem itemPowerUpGun = new controller.MenuItem(gameData, 
-				controller.GameObjectFactory.createSetPowerUp(new StatePlayerPowerUpGun()), "PowerUp: Gun", 20, 360);
+				controller.GameObjectFactory.createSetPowerUp(new StatePlayerPowerUpGun()), "Gun", 20, 360);
 		menuList.add(itemPowerUpGun);
 
 		controller.MenuItem itemPowerUpBigger = new controller.MenuItem(gameData, 
-				controller.GameObjectFactory.createSetPowerUp(new StatePlayerPowerUpBigger()), "PowerUp: Bigger", 120, 360);
+				controller.GameObjectFactory.createSetPowerUp(new StatePlayerPowerUpBigger()), "Bigger", 120, 360);
 		menuList.add(itemPowerUpBigger);
+		
+
+		controller.MenuItem itemPowerUpSplit = new controller.MenuItem(gameData, 
+				controller.GameObjectFactory.createSetPowerUp(new StatePlayerPowerUpSplitBall()), "Splitball", 220, 360);
+		menuList.add(itemPowerUpSplit);
+
+		controller.MenuItem itemPowerUpSmaller = new controller.MenuItem(gameData, 
+				controller.GameObjectFactory.createSetPowerUp(new StatePlayerPowerUpSmaller()), "Smaller", 320, 360);
+		menuList.add(itemPowerUpSmaller);
+
+		controller.MenuItem itemPowerUpExtraLife = new controller.MenuItem(gameData, 
+				controller.GameObjectFactory.createSetPowerUp(new StatePlayerPowerUpExtraLife()), "Extra life", 20, 320);
+		menuList.add(itemPowerUpExtraLife);
+
 		
 		for (controller.GameObject mi : menuList) {
 			if (mi.getBounds().contains(new Point(mousepos_x, mousepos_y))) {
@@ -78,6 +92,7 @@ public class StateLevelEditor extends State {
 				if (mi.getBounds()
 						.contains(new Point(clicked_x, clicked_y))) {
 					mi.pushed();
+					clicked = false;
 				}
 			}
 			
