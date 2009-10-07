@@ -23,10 +23,18 @@ public class PowerUpData {
 
 	}
 
-	public void update(UserData userData) {
+	public void update(GameData gameData, UserData userData) {
 		// TODO for every tick from timer, move accordingly.
 		// *
 		
+		for (Iterator<controller.GameObject> itPower = getPowerUpList().iterator(); itPower.hasNext();) {
+			controller.GameObject pu = itPower.next();
+			if (pu.intersect(userData.getPlayer())) {
+				pu.getPowerUp().update(gameData, userData);
+				itPower.remove();
+				userData.increasePoints(100);
+			}
+		}
 		
 		for (Iterator<controller.GameObject> it = powerUpList.iterator();it.hasNext();){
 			controller.GameObject pu = it.next();

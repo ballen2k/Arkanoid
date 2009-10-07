@@ -20,15 +20,6 @@ public class LevelData {
 		currentLevel = levelList.get(whichLevel);
 	}
 
-	public void getLevelsFromFile() {
-
-		/*
-		 * todo Reads a file containing the levels levelList = läs in filen med
-		 * levels;
-		 */
-
-	}
-
 	public void setNextLevel(int i) {
 		whichLevel = whichLevel + 1;
 		if (levelList.get(whichLevel) != null) {

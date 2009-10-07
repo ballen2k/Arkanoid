@@ -9,7 +9,7 @@ import java.io.Serializable;
  * Class used for saving highScores.
  * Contains the Player ID and the points he/she has.
  */
-public class HighscoreItem extends GameObject implements Serializable {
+public class HighscoreItem extends GameObject implements Serializable, Comparable<HighscoreItem> {
 	
 	private static final long serialVersionUID = 1L;
 	private String id;
@@ -75,5 +75,14 @@ public class HighscoreItem extends GameObject implements Serializable {
 
 	public void setCoordinates(int x, int y) {
 
+	}
+
+	@Override
+	public int compareTo(HighscoreItem arg0) {
+		if(arg0 != null) {
+			return arg0.getPoints() -  this.getPoints();
+		} else {
+			return 0; 
+		}
 	}
 }

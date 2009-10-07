@@ -14,4 +14,8 @@ public class StatePlayerPowerUpSmaller extends State implements Serializable{
 	public Color getColor() {
 		return color;
 	}
+	
+	public void update(model.GameData gameData, model.UserData userData) {
+		userData.getPlayer().setActiveState(this);
+	}
 }

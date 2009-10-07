@@ -15,5 +15,8 @@ public class StatePlayerPowerUpSplitBall extends State implements Serializable{
 		return color;
 	}
 	
-	
+	public void update(model.GameData gameData, model.UserData userData) {
+		if(gameData != null && gameData.getBallData() != null)
+			gameData.getBallData().splitBalls();
+	}
 }

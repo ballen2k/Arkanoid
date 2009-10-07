@@ -16,5 +16,7 @@ private Color color;
 		return color;
 	}
 	
-	
+	public void update(model.GameData gameData, model.UserData userData) {
+		userData.increaseNumberOfLifes();
+	}
 }

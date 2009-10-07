@@ -17,4 +17,7 @@ public class StatePlayerPowerUpBigger extends State implements Serializable{
 		return color;
 	}
 	
+	public void update(model.GameData gameData, model.UserData userData) {
+		userData.getPlayer().setActiveState(this);
+	}
 }

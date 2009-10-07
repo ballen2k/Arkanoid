@@ -7,7 +7,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
 
+import controller.HighscoreItem;
 import controller.Level;
 
 public class HighscoreData {
@@ -23,62 +28,17 @@ public class HighscoreData {
 
 	public void addHighscore(controller.HighscoreItem highscoreItem) {
 		highscoreList.add(highscoreItem);
+		controller.HighscoreItem[] itemsArray = new controller.HighscoreItem[highscoreList.size()];
 
-		/*controller.HighscoreItem array[] = new controller.HighscoreItem[highscoreList.size()]; 
 		for(int i = 0; i < highscoreList.size(); i++) {
-			array[i] = highscoreList.get(i);
+			itemsArray[i] = highscoreList.get(i);
 		}
-		int j = 0;
-
-		for (int i =1;i<highscoreList.size()+1;i++){
-			controller.HighscoreItem value = array[i];
-			j = i-1;
-			while (j>= 0 &&array[j].getPoints()> value.getPoints() ){
-				//highscoreList.add(j+1, highscoreList.get(j--));
-				controller.HighscoreItem temp = array[j+1];
-				
-				array[j+1] = array[j];
-				array[j] = temp; 
-				j--;
-			}
-			//highscoreList.add(j+1,value);
-			controller.HighscoreItem temp = array[j+1];
-			array[j+1] = value; 
-			value = temp; 
-		}
-	
-		highscoreList = new ArrayList<controller.HighscoreItem>();
-		for(int i = 0; i < array.length; i++) {
-			highscoreList.add(array[i]);
-		}*/
 		
+		Arrays.sort(itemsArray);
 		
-		controller.HighscoreItem array[] = new controller.HighscoreItem[highscoreList.size()]; 
-
-		//System.out.println(highscoreList.size());
-		controller.HighscoreItem array1[] = new controller.HighscoreItem[highscoreList.size()]; 
-		for(int i = 0; i < highscoreList.size(); i++) {
-			array1[i] = highscoreList.get(i);
-		}
-		int j = 0;
-		//System.out.println(j);
-		for (int i = 1;i <array1.length;i++){
-			System.out.println(i);
-			controller.HighscoreItem  value = array1[i];
-			j = i-1;
-			while (j>=0 && array1[j].getPoints()> value.getPoints()){
-				array[j+1] = array1[j--];
-				
-			}
-			//System.out.println(j);
-			array1[j+1] = value;
-			//highscoreList.add(j+1, value);
-			
-			
-			}
 		highscoreList = new ArrayList<controller.HighscoreItem>();
-		for(int i = 0; i < array1.length; i++) {
-			highscoreList.add(array1[i]);
+		for(int i = 0; i < itemsArray.length; i++) {
+			highscoreList.add(itemsArray[i]);
 		}
 		
 		try {
@@ -94,7 +54,6 @@ public class HighscoreData {
 		} catch (IOException e) {
 
 		}
-		System.out.println("Sparar ner highscore, antal: " + highscoreList.size());
 	}
 
 	/**
@@ -116,8 +75,5 @@ public class HighscoreData {
 		} catch (ClassNotFoundException e) {
 
 		}
-		
-		System.out.println("Laddat highscore, antal: " + highscoreList.size());
 	}
-
 }

@@ -44,10 +44,13 @@ public class GameData extends Observable implements ActionListener {
 	private int mousepos_y = 0;
 
 	private boolean activeGame = false;
+	private boolean changeLevel = false; 
 
 	private LevelManager levelManager;
 	private UserData userData;
 	private HighscoreData highscoreData; 
+	private PowerUpData powerUpData;
+	private GunShotData gunShotData; 
 
 	public GameData() {
 		userData = new UserData(3, 0);
@@ -70,6 +73,14 @@ public class GameData extends Observable implements ActionListener {
 		activeGame = active;
 	}
 	
+	public void setChangeLevel(boolean changeLevel) {
+		this.changeLevel = changeLevel;
+	}
+	
+	public boolean getChangeLevel() {
+		return this.changeLevel; 
+	}
+	
 	/**
 	 * @return Returns true if there is a game active, else false
 	 */
@@ -79,6 +90,14 @@ public class GameData extends Observable implements ActionListener {
 	
 	public HighscoreData getHighscoreData() {
 		return highscoreData; 
+	}
+	
+	public PowerUpData getPowerUpData() {
+		return this.powerUpData;
+	}
+	
+	public GunShotData getGunShotData() {
+		return this.gunShotData;
 	}
 	
 	public void changeState(states.State state) {
@@ -127,7 +146,18 @@ public class GameData extends Observable implements ActionListener {
 		}
 		if(!activeGame) {
 			userData = new UserData(3, 0);
+			ballData = new BallData(this);
+			powerUpData = new PowerUpData();
+			gunShotData = new GunShotData();
 		}
+		
+		if(changeLevel) {
+			ballData = new BallData(this);
+			powerUpData = new PowerUpData();
+			gunShotData = new GunShotData();
+			changeLevel = false; 
+		}
+		
 		activeState.setMouse(mousepos_x, mousepos_y);
 		activeState.update(this, userData);
 		setChanged();

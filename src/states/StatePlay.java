@@ -11,6 +11,7 @@ import controller.GameObject;
 
 public class StatePlay extends State {
 	private boolean activeGame = false;
+	private model.GameData gameData;
 	private model.LevelData levelData;
 	private model.BallData ballData;
 	private model.PowerUpData powerUpData;
@@ -25,11 +26,10 @@ public class StatePlay extends State {
 
 	public void draw(Graphics g, ArrayList<controller.GameObject> objectList,
 			model.UserData userData) {
-		if (explosion == null) {
-
-		} else {
+		if (explosion != null) {
 			explosion.update(g);
 		}
+		
 		g.setColor(Color.green);
 		for (GameObject go : objectList) {
 			go.draw(g);
@@ -46,6 +46,21 @@ public class StatePlay extends State {
 		userData.getPlayer().draw(g);
 
 	}
+	
+	public void movePlayer() {
+		if(userData != null) 
+			userData.getPlayer().setCoordinates(mousepos_x - (int) (userData.getPlayer().getBounds().getWidth() / 2), 123);
+	}
+	
+
+	private void addExplosion(GameObject ob) {
+		explosion = new controller.Explosion((int) ob.getBounds().getCenterX(), (int) ob.getBounds()
+												.getCenterY(), ob.getColor());
+	}
+	
+	private void addBounceSound() {
+		new AePlayWave("img\\bounce.wav").start();
+	}
 
 	public void setMouse(int pos_x, int pos_y) {
 		this.mousepos_x = pos_x;
@@ -60,32 +75,34 @@ public class StatePlay extends State {
 
 	public void update(model.GameData gameData, model.UserData userData) {
 		if (!activeGame) {
-			levelData = new model.LevelData();
-			ballData = new model.BallData(gameData);
+			//levelData = gameData.getLevelData();
+			ballData = gameData.getBallData();
 			activeGame = true;
-			powerUpData = new model.PowerUpData();
-			gunShotData = new model.GunShotData();
+			powerUpData = gameData.getPowerUpData();
+			gunShotData = gameData.getGunShotData();
 		}
 
 		if (!gameData.getActiveGame()) {
+			this.gameData = gameData;
 			gameData.setActiveGame(true);
 			levelData = new model.LevelData();
 			gameData.getLevelManager().loadLevels();
-			userData = new model.UserData(3, 0);
 		}
-
-		controller.Player player = userData.getPlayer();
+		
+		this.userData = userData; 
+		controller.Player player = this.userData.getPlayer();
 		ArrayList<controller.GameObject> ballList = ballData.getBallList();
 		ArrayList<controller.GameObject> objects;
 		controller.Level level = gameData.getLevelManager().getActiveLevel();
 
+		
 		if (level == null) {
-			gameData.changeState(controller.GameObjectFactory
-					.createStateGameComplete());
+			gameData.changeState(controller.GameObjectFactory.createStateGameComplete());
 			return;
 		}
+		
 		objects = level.getLevel();
-
+		
 		// Check if level is complete =)
 		boolean complete = true;
 		for (controller.GameObject ob : objects) {
@@ -94,195 +111,39 @@ public class StatePlay extends State {
 				break;
 			}
 		}
+		
 		if (complete) {
-			gameData.changeState(controller.GameObjectFactory
-					.createChangeLevelState());
+			gameData.changeState(controller.GameObjectFactory.createChangeLevelState());
 			return;
 		}
 
 		// Move all the balls
-		ballData.update();
-
-		// Move the player
-		userData.getPlayer().setCoordinates(
-				mousepos_x - (int) (player.getBounds().getWidth() / 2), 123);
-
-		// Check if one of the balls have hit a brick and handle it
-		// appropriately
-		for (Iterator<controller.GameObject> itB = ballList.iterator(); itB
-				.hasNext();) {
-			controller.GameObject b = itB.next();
-
-			if (b.getBounds().getY() >= player.getBounds().getY()) {
-				// Ball is under the player
-				itB.remove();
-				continue;
-			}
-
-			for (Iterator<controller.GameObject> it = objects.iterator(); it
-					.hasNext();) {
-				controller.GameObject ob = it.next();
-				if (b.intersect(ob)) {
-					ob.hit(b);
-					if (b.intersectLeft(ob) || b.intersectRight(ob)) {
-						b.changeDirectionX();
-
-					} else {
-						b.changeDirectionY();
-
-					}
-
-					if (ob.isDead()) {
-						new AePlayWave("img\\exp.wav").start();
-						if (ob.hasPowerUp()) {
-							powerUpData.addPowerUp(ob.getPowerUp(), ob.getX(),
-									ob.getY());
-						}
-						// ob.setHealth(1);
-						explosion = new controller.Explosion((int) ob
-								.getBounds().getCenterX(), (int) ob.getBounds()
-								.getCenterY(), ob.getColor());
-						it.remove();
-						userData.increasePoints(100);
-
-					} else {
-						new AePlayWave("img\\bounce.wav").start();
-					}
-					break;
-				}
-
-			}
-
-			if (b.intersect(player)) {
-				new AePlayWave("img\\bounce.wav").start();
-
-				// special case when the balls hit the player far to the left or
-				// right.
-				if (b.getX() + b.getWidth() / 2 < player.getX()
-						|| b.getX() + b.getWidth() / 2 > player.getX()
-								+ player.getWidth()) {
-					b.setSlope(b.getMAX_SLOPE());
-					b.changeDirectionY();
-
-				} else {
-					b.changeDirectionY();
-					b.setSlope((int) ((double) Math.abs((b.getX() + b
-							.getWidth() / 2)
-							- (player.getX() + player.getWidth() / 2))
-							/ (player.getWidth() / 2) * b.getMAX_SLOPE()) + 1);
-				}
-			}
-		}
-
-		if (ballList.isEmpty()) {
-			if (userData.getNumberOfLifes() > 0) {
-				userData.decreaseNumberOfLifes();
-				player.setActiveState(new states.StatePlayerNormal());
-			}
-			if (userData.getNumberOfLifes() == 0) {
-				System.out.println("GAME OVER NOOB");
-				activeGame = false;
-				gameData.changeState(controller.GameObjectFactory
-						.createStateGameOver());
-			} else {
-				ballData.addBall(player.getX() + 25, player.getY()
-						- 15, 1, -1);
-			}
-		}
-		/*
-		 * Collision handling for the powerUps
-		 */
-		for (Iterator<controller.GameObject> itPower = powerUpData
-				.getPowerUpList().iterator(); itPower.hasNext();) {
-			controller.GameObject pu = itPower.next();
-			if (pu.intersect(userData.getPlayer())) {
-				if (pu.getPowerUp() instanceof states.StatePlayerPowerUpExtraLife) {
-					userData.increaseNumberOfLifes();
-				} else if (pu.getPowerUp() instanceof states.StatePlayerPowerUpSplitBall) {
-					ArrayList<GameObject> temp = new ArrayList<GameObject>();
-
-					for (GameObject ball : ballData.getBallList()) {
-						temp.add(controller.GameObjectFactory
-								.createBall(ball.getX(), ball.getY(), ball
-										.getDirectionX()
-										* -1, ball.getDirectionY()));
-					}
-					for (GameObject ball : temp) {
-						ballData.addBall(ball.getX(), ball.getY(), ball
-								.getDirectionX(), ball.getDirectionY());
-					}
-
-				} else {
-
-					player.setActiveState(pu.getPowerUp());
-				}
-				itPower.remove();
-				userData.increasePoints(100);
-			}
-
-		}
-
 		if (clicked) {
 			ballData.activateBall();
 		}
+		
+		ballData.update(gameData, userData, objects);
 
+		// Move the player
+		movePlayer(); 
+
+		
 		/*
 		 * Move the powerUps
 		 */
-		powerUpData.update(userData);
-
-		/*
-		 * Adds gunshots
-		 */
-		if (clicked) {
-
-			if (player.getPowerUp() instanceof states.StatePlayerPowerUpGun) {
-				new AePlayWave("img\\test.wav").start();
-
-				this.gunShotData.addGunShot(player.getX(), player.getY());
-			}
-			clicked = false;
-		}
+		powerUpData.update(gameData, userData);
+		
 		/*
 		 * Moves the gunshots.
 		 */
-		gunShotData.update();
-
-		/*
-		 * Collision handling for the gunshots
-		 */
-		for (Iterator<controller.GameObject> itG = gunShotData.getGunShotList()
-				.iterator(); itG.hasNext();) {
-			controller.GameObject g = itG.next();
-
-			for (Iterator<controller.GameObject> it = objects.iterator(); it
-					.hasNext();) {
-				controller.GameObject ob = it.next();
-				if (g.intersect(ob)) {
-					ob.hit(g);
-
-					itG.remove();
-					if (ob.isDead()) {
-						new AePlayWave("img\\exp.wav").start();
-						if (ob.hasPowerUp()) {
-							powerUpData.addPowerUp(ob.getPowerUp(), ob.getX(),
-									ob.getY());
-						}
-						ob.setHealth(1);
-						explosion = new controller.Explosion((int) ob
-								.getBounds().getCenterX(), (int) ob.getBounds()
-								.getCenterY(), ob.getColor());
-						it.remove();
-						userData.increasePoints(100);
-
-					} else {
-						new AePlayWave("img\\hit.wav").start();
-					}
-					return;
-				}
-			}
+		if(clicked) {
+			gunShotData.setClick(clicked_x, clicked_y);
 		}
+		gunShotData.update(gameData, userData, objects);
 
+		clicked = false;
+		
+		
 		result = new ArrayList<controller.GameObject>();
 		for (controller.GameObject object : objects) {
 			result.add(object);
