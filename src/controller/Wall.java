@@ -12,6 +12,8 @@ import java.io.Serializable;
  * 
  */
 public class Wall extends GameObject implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	private Rectangle2D bounds; 
 	
 	public Wall(int x, int y, int w, int h) {
@@ -20,13 +22,11 @@ public class Wall extends GameObject implements Serializable {
 	}
 	
 	public void changeDirectionX() {
-		// TODO Auto-generated method stub
 		
 	}
 	
 
 	public void changeDirectionY() {
-		// TODO Auto-generated method stub
 		
 	}
 

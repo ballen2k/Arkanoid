@@ -47,6 +47,7 @@ public class GameData extends Observable implements ActionListener {
 
 	private LevelManager levelManager;
 	private UserData userData;
+	private HighscoreData highscoreData; 
 
 	public GameData() {
 		userData = new UserData(3, 0);
@@ -57,6 +58,9 @@ public class GameData extends Observable implements ActionListener {
 
 		levelManager = new LevelManager();
 		levelManager.loadLevels("fil.f");
+		
+		highscoreData = new HighscoreData();
+		highscoreData.loadHighscore("highscore.f");
 	}
 	
 	/**
@@ -71,6 +75,10 @@ public class GameData extends Observable implements ActionListener {
 	 */
 	public boolean getActiveGame() {
 		return activeGame;
+	}
+	
+	public HighscoreData getHighscoreData() {
+		return highscoreData; 
 	}
 	
 	public void changeState(states.State state) {

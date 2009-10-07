@@ -3,6 +3,7 @@ package controller;
 /**
  * This is the Factory class for all the GameObjects.
  * 
+ * 
  * @author Jeremia
  * 
  */
@@ -121,39 +122,48 @@ public class GameObjectFactory {
 
 	/**
 	 * Creates a ChangeLevel state
+	 * 
 	 * @return StateChangeLevel
 	 */
 	public static states.State createChangeLevelState() {
 		return new states.StateChangeLevel();
 	}
-	
-/**
- * Creates a SaveLevel state
- * @return StateSaveLevel
- */
+
+	/**
+	 * Creates a SaveLevel state
+	 * 
+	 * @return StateSaveLevel
+	 */
 	public static states.State createSaveLevelState() {
 		return new states.StateSaveLevel();
 	}
-/**
- * Creates a LevelEditor state
- * @return StateLevelEditor
- */
+
+	/**
+	 * Creates a LevelEditor state
+	 * 
+	 * @return StateLevelEditor
+	 */
 	public static states.State createLevelEditorState() {
 		return new states.StateLevelEditor();
 	}
-/**
- * Creates a ChangeLevelColor state
- * @param color Color
- * @return StateChangeColor
- */
+
+	/**
+	 * Creates a ChangeLevelColor state
+	 * 
+	 * @param color
+	 *            Color
+	 * @return StateChangeColor
+	 */
 	public static states.State createChangeLevelColor(java.awt.Color color) {
 		return new states.StateChangeColor(color);
 	}
-/**
- * Creates a SetPowerUp State
- * @param State
- * @return StateSetPowerUp
- */
+
+	/**
+	 * Creates a SetPowerUp State
+	 * 
+	 * @param State
+	 * @return StateSetPowerUp
+	 */
 	public static states.State createSetPowerUp(states.State powerUp) {
 		return new states.StateSetPowerUp(powerUp);
 	}

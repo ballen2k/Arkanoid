@@ -6,20 +6,24 @@ import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
 import javax.swing.*;
+
 /**
- * The Brick Class. This is the objects making up the map. Contains powerups 
+ * The Brick Class. This is the objects making up the map. Contains powerups
  * which will fall down when the brick is killed.
- * @author Madelene
- *
+ * 
+ * @author Jeremia
+ * 
  */
 public class Brick extends GameObject implements Serializable {
 
+	
+	private static final long serialVersionUID = 1L;
 	private Rectangle2D bounds;
 	private int health = 1;
 	private states.State powerUp;
 	private int x, y;
-	final int width = 35;
-	final int height = 15;
+	private final int width = 35;
+	private final int height = 15;
 	private boolean hasPowerUp = false;
 	private Color color;
 	private ImageIcon image;
@@ -95,7 +99,6 @@ public class Brick extends GameObject implements Serializable {
 	}
 
 	public void draw(Graphics g) {
-		g.setColor(color);
 		g.drawImage(image.getImage(), (int) this.bounds.getX(),
 				(int) this.bounds.getY(), null);
 	}

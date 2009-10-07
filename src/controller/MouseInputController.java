@@ -20,7 +20,6 @@ public class MouseInputController implements MouseListener, MouseMotionListener 
 		this.player = gameData.getPlayer();
 	}
 
-	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		if(arg0.getButton() == 1) {
 			this.gameData.click(arg0.getX(), arg0.getY());
@@ -30,31 +29,23 @@ public class MouseInputController implements MouseListener, MouseMotionListener 
 		
 	}
 
-	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void mousePressed(MouseEvent arg0) {
 		
 		this.gameData.click(arg0.getX(), arg0.getY());
 	}
 
-	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public void mouseDragged(MouseEvent arg0) {
 		gameData.mouseMove(arg0.getX(), arg0.getY());
 

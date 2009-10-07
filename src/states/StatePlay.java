@@ -1,5 +1,6 @@
 package states;
 
+import java.applet.AudioClip;
 import java.awt.*;
 import java.util.*;
 import java.math.*;
@@ -16,7 +17,6 @@ public class StatePlay extends State {
 	private model.UserData userData;
 	private model.GunShotData gunShotData;
 	private controller.Explosion explosion;
-
 	private int mousepos_x, mousepos_y;
 	private int clicked_x, clicked_y;
 	private boolean clicked = false;
@@ -26,7 +26,7 @@ public class StatePlay extends State {
 	public void draw(Graphics g, ArrayList<controller.GameObject> objectList,
 			model.UserData userData) {
 		if (explosion == null) {
-			
+
 		} else {
 			explosion.update(g);
 		}
@@ -35,7 +35,6 @@ public class StatePlay extends State {
 			go.draw(g);
 		}
 
-		
 		Font font = new Font("Serif", Font.BOLD, 12);
 		g.setFont(font);
 		g.setColor(Color.orange);
@@ -67,7 +66,6 @@ public class StatePlay extends State {
 			powerUpData = new model.PowerUpData();
 			gunShotData = new model.GunShotData();
 		}
-		
 
 		if (!gameData.getActiveGame()) {
 			gameData.setActiveGame(true);
@@ -75,7 +73,6 @@ public class StatePlay extends State {
 			gameData.getLevelManager().loadLevels();
 			userData = new model.UserData(3, 0);
 		}
-
 
 		controller.Player player = userData.getPlayer();
 		ArrayList<controller.GameObject> ballList = ballData.getBallList();
@@ -127,28 +124,28 @@ public class StatePlay extends State {
 				controller.GameObject ob = it.next();
 				if (b.intersect(ob)) {
 					ob.hit(b);
-					if(b.intersectLeft(ob)|| b.intersectRight(ob)){
+					if (b.intersectLeft(ob) || b.intersectRight(ob)) {
 						b.changeDirectionX();
-						
-					}else{
+
+					} else {
 						b.changeDirectionY();
-					
+
 					}
-					
+
 					if (ob.isDead()) {
 						new AePlayWave("img\\exp.wav").start();
 						if (ob.hasPowerUp()) {
 							powerUpData.addPowerUp(ob.getPowerUp(), ob.getX(),
 									ob.getY());
 						}
-						//ob.setHealth(1);
+						// ob.setHealth(1);
 						explosion = new controller.Explosion((int) ob
 								.getBounds().getCenterX(), (int) ob.getBounds()
 								.getCenterY(), ob.getColor());
 						it.remove();
 						userData.increasePoints(100);
-						
-					}else{
+
+					} else {
 						new AePlayWave("img\\bounce.wav").start();
 					}
 					break;
@@ -158,17 +155,23 @@ public class StatePlay extends State {
 
 			if (b.intersect(player)) {
 				new AePlayWave("img\\bounce.wav").start();
-				
-				//special case when the balls hit the player far to the left or right. 
-				if (b.getX()+b.getWidth()/2<player.getX() || b.getX()+b.getWidth()/2 > player.getX()+player.getWidth()){
+
+				// special case when the balls hit the player far to the left or
+				// right.
+				if (b.getX() + b.getWidth() / 2 < player.getX()
+						|| b.getX() + b.getWidth() / 2 > player.getX()
+								+ player.getWidth()) {
 					b.setSlope(b.getMAX_SLOPE());
 					b.changeDirectionY();
-					
-				}else{
-				b.changeDirectionY();
-				b.setSlope((int)((double)Math.abs((b.getX()+b.getWidth()/2)-(player.getX()+player.getWidth()/2))/(player.getWidth()/2)*b.getMAX_SLOPE())+1);
+
+				} else {
+					b.changeDirectionY();
+					b.setSlope((int) ((double) Math.abs((b.getX() + b
+							.getWidth() / 2)
+							- (player.getX() + player.getWidth() / 2))
+							/ (player.getWidth() / 2) * b.getMAX_SLOPE()) + 1);
 				}
-				}
+			}
 		}
 
 		if (ballList.isEmpty()) {
@@ -183,7 +186,7 @@ public class StatePlay extends State {
 						.createStateGameOver());
 			} else {
 				ballData.addBall(player.getX() + 25, player.getY()
-						- controller.Ball.BALL_HEIGHT, 1, -1);
+						- 15, 1, -1);
 			}
 		}
 		/*
@@ -193,31 +196,33 @@ public class StatePlay extends State {
 				.getPowerUpList().iterator(); itPower.hasNext();) {
 			controller.GameObject pu = itPower.next();
 			if (pu.intersect(userData.getPlayer())) {
-				if (pu.getPowerUp() instanceof states.StatePlayerPowerUpExtraLife){
+				if (pu.getPowerUp() instanceof states.StatePlayerPowerUpExtraLife) {
 					userData.increaseNumberOfLifes();
-				}else if (pu.getPowerUp() instanceof states.StatePlayerPowerUpSplitBall){
-						ArrayList<GameObject> temp = new ArrayList<GameObject>();
-						
-					for(GameObject ball :ballData.getBallList()){
-						temp.add(controller.GameObjectFactory.createBall(ball.getX(), ball.getY(), ball.getDirectionX()*-1, ball.getDirectionY()));
+				} else if (pu.getPowerUp() instanceof states.StatePlayerPowerUpSplitBall) {
+					ArrayList<GameObject> temp = new ArrayList<GameObject>();
+
+					for (GameObject ball : ballData.getBallList()) {
+						temp.add(controller.GameObjectFactory
+								.createBall(ball.getX(), ball.getY(), ball
+										.getDirectionX()
+										* -1, ball.getDirectionY()));
 					}
-					for (GameObject ball : temp){
-						ballData.addBall(ball.getX(), ball.getY(), ball.getDirectionX(), ball.getDirectionY());
+					for (GameObject ball : temp) {
+						ballData.addBall(ball.getX(), ball.getY(), ball
+								.getDirectionX(), ball.getDirectionY());
 					}
-					
-				}else{
-				
-				
-				player.setActiveState(pu.getPowerUp());
+
+				} else {
+
+					player.setActiveState(pu.getPowerUp());
 				}
 				itPower.remove();
 				userData.increasePoints(100);
 			}
-			
-		}
-		
 
-		if(clicked) {
+		}
+
+		if (clicked) {
 			ballData.activateBall();
 		}
 
@@ -255,7 +260,7 @@ public class StatePlay extends State {
 				controller.GameObject ob = it.next();
 				if (g.intersect(ob)) {
 					ob.hit(g);
-					
+
 					itG.remove();
 					if (ob.isDead()) {
 						new AePlayWave("img\\exp.wav").start();
@@ -270,7 +275,7 @@ public class StatePlay extends State {
 						it.remove();
 						userData.increasePoints(100);
 
-					}else{
+					} else {
 						new AePlayWave("img\\hit.wav").start();
 					}
 					return;

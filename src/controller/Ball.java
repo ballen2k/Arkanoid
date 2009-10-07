@@ -1,28 +1,28 @@
 package controller;
 
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 
 import javax.swing.ImageIcon;
+
 /**
- * The ball class. This is the object thats moving around and
- *         destroying the evil bricks
- * @author Jeremia 
+ * The ball class. This is the object thats moving around and destroying the
+ * evil bricks. Its in this's class almost all the collision handling is done.
+ * 
+ * @author Jeremia
  * 
  */
 public class Ball extends GameObject {
-	Rectangle2D outerBounds;
-	Rectangle2D bounds;
+	private Rectangle2D outerBounds;
+	private Rectangle2D bounds;
 	private int x;
 	private int y;
-	public static final int BALL_WIDTH = 10;
-	public static final int BALL_HEIGHT = 10;
+	private final int BALL_WIDTH = 10;
+	private final int BALL_HEIGHT = 10;
 	private final int MAX_SLOPE = 8;
 	private boolean isMoving = false;
-	private ImageIcon image; 
-
+	private ImageIcon image;
 
 	private int directionX;
 	private int directionY;
@@ -39,18 +39,17 @@ public class Ball extends GameObject {
 	}
 
 	public boolean isMoving() {
-		return isMoving; 
+		return isMoving;
 	}
-	
+
 	public void setMoving() {
 		isMoving = true;
 	}
 
-
 	public int getMAX_SLOPE() {
 		return MAX_SLOPE;
 	}
-	
+
 	public Rectangle2D getBounds() {
 		return outerBounds;
 	}
@@ -87,7 +86,6 @@ public class Ball extends GameObject {
 		this.directionY = directionY * -1;
 	}
 
-	@Override
 	public void draw(Graphics g) {
 		g.drawImage(image.getImage(), x, y, null);
 
@@ -95,44 +93,16 @@ public class Ball extends GameObject {
 
 	public boolean intersect(GameObject object) {
 		bounds = new Rectangle();
-		bounds.setRect(x,y,10,10);
+		// sets the bounds variable to the balls coordinates.
+		bounds.setRect(x, y, BALL_WIDTH, BALL_HEIGHT);
+		// Creates a temporary Rectangle2D thats one tick in front
+		// of the actual ball. This is to prevent the ball from
+		// sticking inside objects when they collide.
 		outerBounds.setRect(x + slope * getDirectionX(), y
 				+ (5 * getDirectionY() + 3), 10, 10);
 		Rectangle2D obBounds = object.getBounds();
 
 		return outerBounds.intersects(obBounds);
-	}
-
-	public boolean intersectLeftRight(GameObject object) {
-		Rectangle2D obBounds = object.getBounds();
-		//Creates temporary Rectangle2d for the top/bottom collission check 
-		Rectangle2D leftZone = new Rectangle();
-		Rectangle2D rightZone = new Rectangle();
-		
-		leftZone.setRect(obBounds.getX() - 9, obBounds.getY() + 1, 9, obBounds
-				.getHeight() - 2);
-		rightZone.setRect(obBounds.getX() + obBounds.getWidth(), obBounds
-				.getY() + 1, 9, obBounds.getHeight() - 2);
-
-		return (outerBounds.intersects(leftZone) || outerBounds
-				.intersects(rightZone)
-				);
-
-	}
-
-	public boolean intersectTopBottom(GameObject object) {
-		Rectangle2D obBounds = object.getBounds();
-		//Creates temporary Rectangle2d for the top/bottom collission check 
-		Rectangle2D topZone = new Rectangle();
-		Rectangle2D bottomZone = new Rectangle();
-		topZone.setRect(obBounds.getX(), obBounds.getY() - 9, obBounds
-				.getWidth(), 9);
-		bottomZone.setRect(obBounds.getX(), obBounds.getY()
-				+ obBounds.getHeight(), obBounds.getWidth(), 9);
-
-		return (outerBounds.intersects(bottomZone) || outerBounds
-				.intersects(topZone));
-
 	}
 
 	public boolean intersectLeft(GameObject object) {
@@ -141,7 +111,8 @@ public class Ball extends GameObject {
 		Rectangle2D leftZone = new Rectangle();
 		leftZone.setRect(obBounds.getX() - 10, obBounds.getY(), 10, obBounds
 				.getHeight());
-
+		// Checks if the ball intersects with the newly created temp
+		// rectangle.
 		return (bounds.intersects(leftZone));
 	}
 
@@ -151,11 +122,11 @@ public class Ball extends GameObject {
 		Rectangle2D rightZone = new Rectangle();
 		rightZone.setRect(obBounds.getX() + obBounds.getWidth(), obBounds
 				.getY(), 10, obBounds.getHeight());
-
+		// Checks if the ball intersects with the newly created temp
+		// rectangle.
 		return (bounds.intersects(rightZone));
 	}
 
-	@Override
 	public void setCoordinates(int x, int y) {
 		this.x = x;
 		this.y = y;

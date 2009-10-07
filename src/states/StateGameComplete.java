@@ -8,17 +8,40 @@ import java.util.*;
 
 public class StateGameComplete extends State {
 	private ArrayList<controller.GameObject> menuList;
+	private ArrayList<controller.HighscoreItem> highscoreItems;
 	private int mousepos_x, mousepos_y;
 	private int clicked_x, clicked_y;
 	private boolean clicked = false;
+	private boolean savedHighscore = false;
 
 	public void update(model.GameData gameData, model.UserData userData) {
 		gameData.setActiveGame(false);
 
+		if(!savedHighscore) {
+			java.util.Date date = new java.util.Date();
+			String dateString = new String(); 
+			dateString += Integer.toString(date.getYear()+1900);
+			dateString += " - "; 
+			dateString += Integer.toString(date.getMonth());
+			dateString += " - "; 
+			dateString+= Integer.toString(date.getDay());
+			dateString += " "; 
+			dateString += Integer.toString(date.getHours());
+			dateString += ":";
+			dateString += Integer.toString(date.getMinutes());
+			dateString += ":";
+			dateString += Integer.toString(date.getSeconds());
+			
+			gameData.getHighscoreData().addHighscore(new controller.HighscoreItem(dateString, userData.getPoints()));
+			savedHighscore = true; 
+		}
+		
+		highscoreItems = gameData.getHighscoreData().getHighscore();
+		
 		menuList = new ArrayList<controller.GameObject>();
 		controller.MenuItem itemStart = new controller.MenuItem(gameData,
 				controller.GameObjectFactory.createMenuState(), "Main menu",
-				180, 220);
+				180, 420);
 		menuList.add(itemStart);
 
 		for (controller.GameObject mi : menuList) {
@@ -52,6 +75,13 @@ public class StateGameComplete extends State {
 	}
 
 	public ArrayList<controller.GameObject> getObjects() {
+		if(highscoreItems != null)
+		for(int i = 0; i < Math.min(10, highscoreItems.size()); i++) {
+			controller.HighscoreItem hi = highscoreItems.get(i);
+			hi.setX(120);
+			hi.setY((i+10)*20);
+			menuList.add(hi);
+		}
 		return menuList;
 	}
 

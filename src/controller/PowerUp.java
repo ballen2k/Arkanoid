@@ -1,6 +1,5 @@
 package controller;
 
-import java.awt.Color;
 /**
  * Class Powerup. This is the object displayd when an powerup is dropped
  * Contains wich powerup the player will get.
@@ -49,8 +48,6 @@ public class PowerUp extends GameObject {
 
 
 	public void draw(Graphics g) {
-		g.setColor(this.powerUp.getColor());
-		//g.fillRect((int) bounds.getX(), (int) bounds.getY(), width, height);
 		g.drawImage(image.getImage(), (int)this.bounds.getX(), (int)this.bounds.getY(), null);
 		
 	}
@@ -81,70 +78,11 @@ public class PowerUp extends GameObject {
 		return 0;
 	}
 
-	@Override
 	public boolean intersect(GameObject ob) {
 		
 
 		return bounds.intersects(ob.getBounds());
 	}
 
-	@Override
-	public void hit(GameObject g) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean isDead() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public void setHealth(int i) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public int getHealth() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void changeDirectionX() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void changeDirectionY() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public int getDirectionX() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getDirectionY() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getSlope() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public void setSlope(int i) {
-		// TODO Auto-generated method stub
-
-	}
+	
 }

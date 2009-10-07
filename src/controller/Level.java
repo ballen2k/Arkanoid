@@ -11,8 +11,9 @@ import java.awt.*;
  * Class for using and drawing the level
  */
 public class Level implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	private ArrayList<GameObject> level;
-	private GameObject brick;
 	private Color color;
 	
 	public Level() {

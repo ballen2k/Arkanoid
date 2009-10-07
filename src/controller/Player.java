@@ -1,6 +1,5 @@
 package controller;
 
-import java.awt.Color;
 /**
  * Class player. The user controller actor in the game.
  * 
@@ -10,8 +9,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
-
-import states.State;
 import javax.swing.*;
 public class Player extends GameObject {
 
@@ -111,18 +108,14 @@ public class Player extends GameObject {
 		return activeState;
 		};
 
-	@Override
 	public void hit(GameObject g) {
-		// TODO Auto-generated method stub
 
 	}
 
-	@Override
 	public boolean isDead() {
 		return (health == 0);
 	}
 
-	@Override
 	public void setHealth(int i) {
 		this.health = i;
 	}
@@ -132,38 +125,6 @@ public class Player extends GameObject {
 		return health;
 	}
 
-	@Override
-	public void changeDirectionX() {
-		// TODO Auto-generated method stub
 
-	}
-
-	@Override
-	public void changeDirectionY() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public int getDirectionX() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getDirectionY() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int getSlope() {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public void setSlope(int i) {
-
-	}
 
 }
