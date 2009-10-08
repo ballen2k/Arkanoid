@@ -73,10 +73,19 @@ public class GameData extends Observable implements ActionListener {
 		activeGame = active;
 	}
 	
+	/**
+	 * Set changeLevel when changing level so GameData can reload
+	 * the different models.
+	 * @param changeLevel
+	 */
 	public void setChangeLevel(boolean changeLevel) {
 		this.changeLevel = changeLevel;
 	}
 	
+	/**
+	 * Returns true it is time to change level
+	 * @return changeLevel
+	 */
 	public boolean getChangeLevel() {
 		return this.changeLevel; 
 	}
@@ -88,53 +97,97 @@ public class GameData extends Observable implements ActionListener {
 		return activeGame;
 	}
 	
+	/** 
+	 * 
+	 * @return highscoreData
+	 */
 	public HighscoreData getHighscoreData() {
 		return highscoreData; 
 	}
-	
+	/**
+	 * 
+	 * @return powerUpData
+	 */
 	public PowerUpData getPowerUpData() {
 		return this.powerUpData;
 	}
 	
+	/**
+	 * @return gunShotData
+	 */
 	public GunShotData getGunShotData() {
 		return this.gunShotData;
 	}
 	
+	/**
+	 * Changes gamestate
+	 * @param state
+	 */
 	public void changeState(states.State state) {
 		activeState = state;
 		setChanged();
 		notifyObservers(state);
 	}
 
+	/**
+	 * Getter for LevelData
+	 * @return
+	 */
 	public LevelData getLevelData() {
 		return levelData;
 	}
 
+	/**
+	 * Returns player
+	 * @return player
+	 */
 	public Player getPlayer() {
 		return userData.getPlayer();
 	}
 
+	/**
+	 * Gets set when user clicks
+	 * @param x MouseCoordX
+	 * @param y	 MouseCoordY
+	 */
 	public void click(int x, int y) {
 		clicked = true;
 		clicked_x = x;
 		clicked_y = y;
 	}
 	
+	/**
+	 * Gets set when user right clicks with mouse
+	 * @param x MouseCoordX
+	 * @param y	 MouseCoordY
+	 */
 	public void rightClick(int x, int y) {
 		rightClick = true; 
 		rightClicked_x = x; 
 		rightClicked_y = y;
 	}
 
+	/** 
+	 * Gets set by MouseInputController when the mouse moves
+	 * @param x MouseCoordX
+	 * @param y MouseCoordY
+	 */
 	public void mouseMove(int x, int y) {
 		mousepos_x = x;
 		mousepos_y = y;
 	}
 
+	/**
+	 * Returns active LevelManager
+	 * @return levelManager
+	 */
 	public LevelManager getLevelManager() {
 		return levelManager;
 	}
 
+	/**
+	 * Gets called when the timer updates
+	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		if (clicked) {
@@ -165,7 +218,11 @@ public class GameData extends Observable implements ActionListener {
 		setChanged();
 		notifyObservers(activeState.getObjects());
 	}
-
+	
+	/**
+	 * 
+	 * @return ballData
+	 */
 	public BallData getBallData() {
 		return ballData;
 	}

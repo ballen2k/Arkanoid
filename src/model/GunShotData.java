@@ -6,7 +6,11 @@ import java.util.Iterator;
 import controller.AePlayWave;
 import controller.GameObject;
 import controller.GameObjectFactory;
-
+/**
+ * Class for managing gunshots
+ * 
+ * @author Robert Norlander
+ */
 public class GunShotData {
 	private int x;
 	private int y;
@@ -21,6 +25,11 @@ public class GunShotData {
 		this.gunShotList = new ArrayList<GameObject>();
 	}
 
+	/**
+	 * Add gunshot
+	 * @param x StartX
+	 * @param y StartY
+	 */
 	public void addGunShot(int x, int y) {
 
 		gunShotList.add(controller.GameObjectFactory.createGunShot(x+3,y));

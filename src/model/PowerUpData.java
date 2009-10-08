@@ -5,7 +5,9 @@ import java.util.Iterator;
 
 import controller.GameObject;
 import controller.GameObjectFactory;
-
+/**
+ * Manages powerups
+ */
 public class PowerUpData {
 	int x;
 	int y;

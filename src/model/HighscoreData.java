@@ -14,7 +14,9 @@ import java.util.List;
 
 import controller.HighscoreItem;
 import controller.Level;
-
+/**
+ * Class for managing highscore data
+ */
 public class HighscoreData {
 	ArrayList<controller.HighscoreItem> highscoreList;
 
@@ -22,10 +24,18 @@ public class HighscoreData {
 		highscoreList = new ArrayList<controller.HighscoreItem>();
 	}
 
+	/**
+	 * Returns a list of highscores
+	 * @return highscoreList
+	 */
 	public ArrayList<controller.HighscoreItem> getHighscore() {
 		return highscoreList;
 	}
 
+	/**
+	 * Adds a new highscore to the list
+	 * @param highscoreItem New highcsore
+	 */
 	public void addHighscore(controller.HighscoreItem highscoreItem) {
 		highscoreList.add(highscoreItem);
 		controller.HighscoreItem[] itemsArray = new controller.HighscoreItem[highscoreList.size()];
